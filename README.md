@@ -4,6 +4,6 @@ CS 435 - Parking spot finder application for Android.
 ##Members 
 <hr>
 ####Team Lead: 
-Jacob Reed
+Jacob Reed<br>
 email: jacob.reed95@siu.edu
 
