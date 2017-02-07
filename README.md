@@ -2,10 +2,10 @@
 CS 435 - Parking spot finder application for Android.
 
 ##Members 
-Alejandro Narvaez-Colon<br>
+Alejandro Narvaez<br>
 email: agnarvaez@siu.edu<br>
 <hr>
-Maha Almaghshi-Colon<br>
+Maha Almaghshi<br>
 email: mahaalamghshi@siu.edu
 <hr>
 ####QA Manager
