@@ -6,7 +6,7 @@ Alejandro Narvaez-Colon<br>
 email: agnarvaez@siu.edu<br>
 <hr>
 Maha Almaghshi-Colon<br>
-email: mahaalamghshi@siu.edu>
+email: mahaalamghshi@siu.edu
 <hr>
 ####QA Manager
 Mohammed Abdulkadir <br> 
