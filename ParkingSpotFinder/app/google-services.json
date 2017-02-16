@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "68342034710-3quteohk92sb7b6rnghofbaceuc5ogbq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.siu.cs.www.parkingspotfinder",
+            "certificate_hash": "6EC7D3084405EAC350E60425CE9564846E044286"
+          }
+        },
+        {
           "client_id": "68342034710-tm683ladjdvlov2junp4lp1cavrb5shq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
