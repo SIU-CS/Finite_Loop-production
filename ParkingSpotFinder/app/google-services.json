@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "68342034710-tm683ladjdvlov2junp4lp1cavrb5shq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.siu.cs.www.parkingspotfinder",
+            "certificate_hash": "78127EE4875392A3BBD0A1D6EA97532A2EB540B3"
+          }
+        },
+        {
           "client_id": "68342034710-bim50ko0rqoj3e48lre378mtungeee6h.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "68342034710-bim50ko0rqoj3e48lre378mtungeee6h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
