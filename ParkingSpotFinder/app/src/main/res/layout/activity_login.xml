@@ -10,17 +10,64 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.siu.cs.www.parkingspotfinder.LoginActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/emailField"
+        android:hint="E-Mail:"
+        android:layout_marginBottom="173dp"
+        android:layout_alignBottom="@+id/loginBtn"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:selectAllOnFocus="false"
+        android:inputType="textEmailAddress"
+        style="@style/Widget.AppCompat.EditText" />
+
+    <Button
+        android:text="Register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/button7"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@color/colorPrimaryDark" />
+
     <Button
         android:text="Login"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/loginBtn"
         style="@style/Widget.AppCompat.Button.Colored"
         android:background="?attr/actionModeSplitBackground"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="27dp"
+        android:layout_marginBottom="11dp"
+        android:layout_above="@+id/button7"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/nameField"
+        android:layout_above="@+id/emailField"
+        android:layout_toRightOf="@+id/textView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:hint="Name:" />
+
 </RelativeLayout>
