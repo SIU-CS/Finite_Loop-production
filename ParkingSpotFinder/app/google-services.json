@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "68342034710",
+    "firebase_url": "https://parkingspotfinder-22e95.firebaseio.com",
+    "project_id": "parkingspotfinder-22e95",
+    "storage_bucket": "parkingspotfinder-22e95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68342034710:android:c3fb96cfff5d3731",
+        "android_client_info": {
+          "package_name": "edu.siu.cs.www.parkingspotfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "68342034710-bim50ko0rqoj3e48lre378mtungeee6h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANPnTFqir5V-pAydresLA8IIL4K9S7UTE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
