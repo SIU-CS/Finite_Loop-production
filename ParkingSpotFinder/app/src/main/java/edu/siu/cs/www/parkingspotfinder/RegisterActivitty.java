@@ -1,5 +1,6 @@
 package edu.siu.cs.www.parkingspotfinder;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -23,15 +24,22 @@ import java.util.HashMap;
 
 public class RegisterActivitty extends AppCompatActivity {
 
+    // UI elements
     private Button registerButton;
     private Button cancelButton;
     private DatabaseReference mDatabase;
     private EditText nameTextField, emailTextField, passwordTextField, verifyPasswordtextField;
 
+    // Used for managing firebase connection
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    // Used to show how much progress has been made
+    private ProgressDialog progressDialog;
+
+    // Different strings that will need private classwide access
     private static final String TAG = "RegisterActivity:";
+    private String email, password, name, verifyPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,40 +74,55 @@ public class RegisterActivitty extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = emailTextField.getText().toString().trim();
-                String name = nameTextField.getText().toString().trim();
-                String password = passwordTextField.getText().toString().trim();
-                String verifyPassword = verifyPasswordtextField.getText().toString().trim();
-
-                // Organize the user data
-                HashMap<String, String> userDataMap = new HashMap<String, String>();
-                userDataMap.put("Name", name);
-                userDataMap.put("Email", email);
-                userDataMap.put("Pass", password);
+                // Get the information from the different fields
+                email = emailTextField.getText().toString().trim();
+                name = nameTextField.getText().toString().trim();
+                password = passwordTextField.getText().toString().trim();
+                verifyPassword = verifyPasswordtextField.getText().toString().trim();
 
                 if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(name)
                         && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(verifyPassword)){
                     if(password.equals(verifyPassword)){
-                        mDatabase.push().setValue(userDataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Intent loginActivity = new Intent(RegisterActivitty.this, LoginActivity.class);
-                                startActivity(loginActivity);
-                                Toast.makeText(RegisterActivitty.this, "Successfully Registered!", Toast.LENGTH_LONG).show();
-                            }
-                        });
 
                         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            FirebaseUser user = mAuth.getCurrentUser();
+
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+                                // Organize the user data
+                                HashMap<String, String> userDataMap = new HashMap<String, String>();
+                                userDataMap.put("Name", name);
+                                userDataMap.put("Email", email);
 
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
+                                // LOGGING
+                                Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful() + " USER: "+user.getUid());
+                                 progressDialog = ProgressDialog.show(RegisterActivitty.this, "Creating User", "Creating your account.", true);
+
+                                // If the tasks fail, notify the user
                                 if (!task.isSuccessful()) {
+                                    progressDialog.dismiss();
                                     Toast.makeText(RegisterActivitty.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // Switch the activity back to the loggin
+                                    Intent loginActivity = new Intent(RegisterActivitty.this, LoginActivity.class);
+                                    startActivity(loginActivity);
+
+                                    progressDialog.dismiss();
+
+                                    // Write the neww user's information to the database
+                                    mDatabase.child("users").child(user.getUid()).setValue(userDataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                            // Start the login activity after writing user information to the database
+                                            Intent loginActivity = new Intent(RegisterActivitty.this, LoginActivity.class);
+                                            startActivity(loginActivity);
+
+                                            // Notify the user that they have been registered
+                                            Toast.makeText(RegisterActivitty.this, "Successfully Registered!", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
                                 }
                             }
                         });
@@ -109,9 +132,6 @@ public class RegisterActivitty extends AppCompatActivity {
                 } else {
                     Toast.makeText(RegisterActivitty.this, "All fields are required!", Toast.LENGTH_LONG).show();
                 }
-
-                // Write changes to the database
-
             }
         });
 

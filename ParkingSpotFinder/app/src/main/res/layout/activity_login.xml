@@ -22,16 +22,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:id="@+id/emailField"
-        android:hint="E-Mail:"
+        android:id="@+id/passwordField"
+        android:hint="Password:"
         android:layout_marginBottom="173dp"
         android:layout_alignBottom="@+id/loginBtn"
         android:layout_toRightOf="@+id/textView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:selectAllOnFocus="false"
-        android:inputType="textEmailAddress"
-        style="@style/Widget.AppCompat.EditText" />
+        style="@style/Widget.AppCompat.EditText"
+        android:inputType="textPassword" />
 
     <Button
         android:text="Login"
@@ -48,14 +48,14 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/nameField"
-        android:layout_above="@+id/emailField"
+        android:layout_above="@+id/passwordField"
         android:layout_toRightOf="@+id/textView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:hint="Name:" />
+        android:hint="E-Mail:"
+        android:id="@+id/emailField"
+        android:inputType="textEmailAddress" />
 
     <Button
         android:text="Register"
