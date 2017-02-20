@@ -1,5 +1,6 @@
 package edu.siu.cs.www.parkingspotfinder;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,8 @@ public class RegisterActivitty extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+
+    private ProgressDialog progressDialog;
 
     private static final String TAG = "RegisterActivity:";
 
@@ -71,6 +74,8 @@ public class RegisterActivitty extends AppCompatActivity {
                 String password = passwordTextField.getText().toString().trim();
                 String verifyPassword = verifyPasswordtextField.getText().toString().trim();
 
+                mDatabase.setValue("Test");
+
                 // Organize the user data
                 HashMap<String, String> userDataMap = new HashMap<String, String>();
                 userDataMap.put("Name", name);
@@ -80,27 +85,33 @@ public class RegisterActivitty extends AppCompatActivity {
                 if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(name)
                         && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(verifyPassword)){
                     if(password.equals(verifyPassword)){
-                        mDatabase.push().setValue(userDataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Intent loginActivity = new Intent(RegisterActivitty.this, LoginActivity.class);
-                                startActivity(loginActivity);
-                                Toast.makeText(RegisterActivitty.this, "Successfully Registered!", Toast.LENGTH_LONG).show();
-                            }
-                        });
 
                         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            FirebaseUser user = mAuth.getCurrentUser();
+
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
 
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
+                                // LOGGING
+                                Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful() + " USER: "+user.getUid());
+                                 progressDialog = ProgressDialog.show(RegisterActivitty.this, "Creating User", "Creating your account.", true);
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(RegisterActivitty.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                 }
+                                Intent loginActivity = new Intent(RegisterActivitty.this, LoginActivity.class);
+                                startActivity(loginActivity);
+                                progressDialog.dismiss();
+                                Toast.makeText(RegisterActivitty.this, "Successfully Registered!", Toast.LENGTH_LONG).show();
+
+                                mDatabase.child(user.getUid()).setValue("test").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Intent loginActivity = new Intent(RegisterActivitty.this, LoginActivity.class);
+                                        startActivity(loginActivity);
+                                        Toast.makeText(RegisterActivitty.this, "Successfully Registered!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
                         });
                     } else {
