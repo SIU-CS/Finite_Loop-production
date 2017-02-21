@@ -65,30 +65,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
+        // Test edit
+
         // Listen for login button click
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-//                // Get their name from the text field
-//                String email = emailTextField.getText().toString().trim();
-//                String name = nameTextField.getText().toString().trim();
-//
-//                // Organize the user data
-//                HashMap<String, String> userDataMap = new HashMap<String, String>();
-//                userDataMap.put("Name", name);
-//                userDataMap.put("Email", email);
-//
-//                // Write changes to the database
-//                mDatabase.push().setValue(userDataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if(task.isSuccessful()){
-//                            Toast.makeText(LoginActivity.this, "Data Stored", Toast.LENGTH_LONG).show();
-//                        } else {
-//                            Toast.makeText(LoginActivity.this, "Error: Unable to store data!", Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//                });
+
                 // Show the user that they are being logged in
                 progressDialog = ProgressDialog.show(LoginActivity.this, "Login", "Logging into your account.", true);
 
