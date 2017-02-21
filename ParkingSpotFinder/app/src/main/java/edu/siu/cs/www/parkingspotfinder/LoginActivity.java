@@ -1,5 +1,6 @@
 package edu.siu.cs.www.parkingspotfinder;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -31,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private static final String TAG = "LoginState";
+
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -85,6 +88,8 @@ public class LoginActivity extends AppCompatActivity {
 //                        }
 //                    }
 //                });
+                // Show the user that they are being logged in
+                progressDialog = ProgressDialog.show(LoginActivity.this, "Login", "Logging into your account.", true);
 
                 //Get the information from the needed fields
                 String email = emailTextField.getText().toString().trim();
@@ -101,9 +106,11 @@ public class LoginActivity extends AppCompatActivity {
                                     Log.w(TAG, "signInWithEmail" + task.getException().getMessage());
                                     Toast.makeText(LoginActivity.this, "Authentication Failed!",
                                             Toast.LENGTH_LONG).show();
+                                    progressDialog.dismiss();
                                 } else {
                                     Intent startMainView = new Intent(LoginActivity.this, MapActivity.class);
                                     startActivity(startMainView);
+                                    progressDialog.dismiss();
                                 }
                             }
                         });

@@ -1,7 +1,12 @@
 package edu.siu.cs.www.parkingspotfinder;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,6 +19,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     private GoogleMap mMap;
 
+    private Button menuButton, searchButton;
+    private EditText searchBar;
+    private Intent swicthActivityIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +31,25 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        menuButton = (Button) findViewById(R.id.menuButton);
+        searchButton = (Button) findViewById(R.id.searchButton);
+        searchBar = (EditText) findViewById(R.id.searchLocationBar);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        // Switch to the menu when the menu button is clicked
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchActivity(MapActivity.this, MenuActivity.class);
+            }
+        });
     }
 
 
@@ -43,4 +71,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
+
+    // Method assists with switching activities
+    public void switchActivity(Activity current, Class switchTo){
+        swicthActivityIntent = new Intent(current, switchTo);
+        startActivity(swicthActivityIntent);
+    }
 }
+
