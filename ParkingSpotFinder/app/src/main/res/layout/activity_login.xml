@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
@@ -17,21 +18,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/textView" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:id="@+id/passwordField"
-        android:hint="Password:"
-        android:layout_marginBottom="173dp"
-        android:layout_alignBottom="@+id/loginBtn"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:selectAllOnFocus="false"
-        style="@style/Widget.AppCompat.EditText"
-        android:inputType="textPassword" />
 
     <Button
         android:text="Login"
@@ -56,6 +42,31 @@
         android:hint="E-Mail:"
         android:id="@+id/emailField"
         android:inputType="textEmailAddress" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/gospaceslogo"
+        android:id="@+id/imageView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/emailField" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/passwordField"
+        android:hint="Password:"
+        android:layout_marginBottom="84dp"
+        android:selectAllOnFocus="false"
+        style="@style/Widget.AppCompat.EditText"
+        android:inputType="textPassword"
+        android:layout_above="@+id/loginBtn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:text="Register"

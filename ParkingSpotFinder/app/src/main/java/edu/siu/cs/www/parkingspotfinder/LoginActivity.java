@@ -2,6 +2,7 @@ package edu.siu.cs.www.parkingspotfinder;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private static final String TAG = "LoginState";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this, "Authentication Failed!",
                                             Toast.LENGTH_LONG).show();
                                 } else {
-                                    Intent startMainView = new Intent(LoginActivity.this, MainView.class);
+                                    Intent startMainView = new Intent(LoginActivity.this, MapActivity.class);
                                     startActivity(startMainView);
                                 }
                             }
