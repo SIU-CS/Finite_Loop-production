@@ -3,6 +3,7 @@ package edu.siu.cs.www.parkingspotfinder;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.text.TextUtilsCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -97,23 +98,29 @@ public class LoginActivity extends AppCompatActivity {
 
                 Log.d(TAG, "EMAIL: " + email);
 
-                //Sign in the user
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(!task.isSuccessful()){
-                                    Log.w(TAG, "signInWithEmail" + task.getException().getMessage());
-                                    Toast.makeText(LoginActivity.this, "Authentication Failed!",
-                                            Toast.LENGTH_LONG).show();
-                                    progressDialog.dismiss();
-                                } else {
-                                    Intent startMainView = new Intent(LoginActivity.this, MapActivity.class);
-                                    startActivity(startMainView);
-                                    progressDialog.dismiss();
+                // Validate the login credentials before logging in
+                if (email.matches("") || password.matches("")){
+                    Toast.makeText(LoginActivity.this, "Unable to authenticate. Provide all information!", Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss();
+                } else {
+                    //Sign in the user
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(!task.isSuccessful()){
+                                        Log.w(TAG, "signInWithEmail" + task.getException().getMessage());
+                                        Toast.makeText(LoginActivity.this, "Authentication Failed!",
+                                                Toast.LENGTH_LONG).show();
+                                        progressDialog.dismiss();
+                                    } else {
+                                        Intent startMainView = new Intent(LoginActivity.this, MapActivity.class);
+                                        startActivity(startMainView);
+                                        progressDialog.dismiss();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
             }
         });
 
