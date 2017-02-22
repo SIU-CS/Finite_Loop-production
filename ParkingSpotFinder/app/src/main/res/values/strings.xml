@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">Parking Spot Finder</string>
+    <string name="app_name">Parkr</string>
+    <string name="title_activity_main">Map</string>
+    <string name="google_maps_key">AIzaSyDp-Bgms6I6qkiiaH-_Nd6-fcVyskQTLkQ</string>
+    <string name="title_activity_map">Map</string>
 </resources>
