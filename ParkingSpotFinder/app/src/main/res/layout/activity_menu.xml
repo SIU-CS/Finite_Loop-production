@@ -10,4 +10,96 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.siu.cs.www.parkingspotfinder.MenuActivity">
 
+    <Button
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/backArrowButton"
+        android:background="@drawable/arrowback"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <edu.siu.cs.www.parkingspotfinder.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Parkr"
+        android:textSize="30dp"
+        android:textColor="#000000"
+        android:layout_gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/parkrLabel" />
+
+    <TextView
+        android:text="Account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:id="@+id/accountLabel"
+        android:textColor="#000000"
+        android:layout_below="@+id/accountButton"
+        android:layout_alignRight="@+id/accountButton"
+        android:layout_alignEnd="@+id/accountButton"
+        android:layout_alignLeft="@+id/accountButton"
+        android:layout_alignStart="@+id/accountButton"
+        android:gravity="center"/>
+
+    <TextView
+        android:text="Log Out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logoutLabel"
+        android:layout_alignBottom="@+id/informationLabel"
+        android:textColor="#000000"
+        android:layout_alignTop="@+id/informationLabel"
+        android:layout_alignRight="@+id/logOutButton"
+        android:layout_alignEnd="@+id/logOutButton"
+        android:gravity="center"
+        android:layout_alignLeft="@+id/logOutButton"
+        android:layout_alignStart="@+id/logOutButton" />
+
+    <TextView
+        android:text="Information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/informationLabel"
+        android:textColor="#000000"
+        android:layout_alignBaseline="@+id/accountLabel"
+        android:layout_alignBottom="@+id/accountLabel"
+        android:layout_alignLeft="@+id/informationButton"
+        android:layout_alignStart="@+id/informationButton"
+        android:layout_toStartOf="@+id/logOutButton"
+        android:gravity="center"
+        android:layout_alignRight="@+id/informationButton"
+        android:layout_alignEnd="@+id/informationButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logOutButton"
+        android:background="@drawable/logoff"
+        android:layout_alignBaseline="@+id/informationButton"
+        android:layout_alignBottom="@+id/informationButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:id="@+id/accountButton"
+        android:background="@drawable/account"
+        android:layout_below="@+id/backArrowButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/informationButton"
+        android:background="@drawable/information"
+        android:layout_alignBaseline="@+id/accountButton"
+        android:layout_alignBottom="@+id/accountButton"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
