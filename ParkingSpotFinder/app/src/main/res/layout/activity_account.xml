@@ -30,4 +30,14 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/parkrLabel" />
 
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/backArrowButton"
+        android:layout_toRightOf="@+id/backArrowButton"
+        android:layout_toEndOf="@+id/backArrowButton"
+        android:layout_marginTop="39dp"
+        android:id="@+id/textView2" />
+
 </RelativeLayout>

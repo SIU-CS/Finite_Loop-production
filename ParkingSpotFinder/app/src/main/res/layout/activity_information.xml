@@ -29,4 +29,42 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/parkrLabel" />
+
+    <TextView
+        android:text="About Parkr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:layout_alignBottom="@+id/backArrowButton"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/aboutAppView"
+        android:textSize="30dp" />
+
+    <TextView
+        android:text="      Parkr and app that will help you find an open parking spot in a lot near you! Feel free to contact us with any questions or comments about our app. We can be reached at parkr@gmail.com "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="18dp"
+        android:textColor="#000000"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/aboutAppView"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Version 0.5"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_alignLeft="@+id/aboutAppView"
+        android:layout_alignStart="@+id/aboutAppView"
+        android:layout_marginLeft="26dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="84dp"
+        android:id="@+id/textView5" />
 </RelativeLayout>
