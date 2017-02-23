@@ -40,4 +40,18 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/aboutAppView"
         android:textSize="30dp" />
+
+    <TextView
+        android:text="      Parkr and app that will help you find an open parking spot in a lot near you! Feel free to contact us with any questions or comments about our app. We can be reached at parkr@gmail.com "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity=
+        android:layout_marginTop="42dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="18dp"
+        android:textColor="#000000"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/aboutAppView"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
