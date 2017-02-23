@@ -42,7 +42,8 @@
         android:layout_alignEnd="@+id/accountButton"
         android:layout_alignLeft="@+id/accountButton"
         android:layout_alignStart="@+id/accountButton"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textSize="20dp"/>
 
     <TextView
         android:text="Log Out"
@@ -51,27 +52,13 @@
         android:id="@+id/logoutLabel"
         android:layout_alignBottom="@+id/informationLabel"
         android:textColor="#000000"
-        android:layout_alignTop="@+id/informationLabel"
         android:layout_alignRight="@+id/logOutButton"
         android:layout_alignEnd="@+id/logOutButton"
         android:gravity="center"
         android:layout_alignLeft="@+id/logOutButton"
-        android:layout_alignStart="@+id/logOutButton" />
-
-    <TextView
-        android:text="Information"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/informationLabel"
-        android:textColor="#000000"
-        android:layout_alignBaseline="@+id/accountLabel"
-        android:layout_alignBottom="@+id/accountLabel"
-        android:layout_alignLeft="@+id/informationButton"
-        android:layout_alignStart="@+id/informationButton"
-        android:layout_toStartOf="@+id/logOutButton"
-        android:gravity="center"
-        android:layout_alignRight="@+id/informationButton"
-        android:layout_alignEnd="@+id/informationButton" />
+        android:layout_alignStart="@+id/logOutButton"
+        android:textSize="20dp"
+        android:layout_alignTop="@+id/accountLabel" />
 
     <Button
         android:layout_width="wrap_content"
@@ -100,6 +87,29 @@
         android:background="@drawable/information"
         android:layout_alignBaseline="@+id/accountButton"
         android:layout_alignBottom="@+id/accountButton"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/menuLabel"
+        android:textSize="30dp"
+        android:layout_alignLeft="@+id/parkrLabel"
+        android:layout_alignStart="@+id/parkrLabel"
+        android:textColor="#000000"
+        android:layout_above="@+id/accountButton" />
+
+    <TextView
+        android:text="Information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/informationLabel"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_alignBaseline="@+id/accountLabel"
+        android:layout_alignBottom="@+id/accountLabel"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
