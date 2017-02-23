@@ -1,10 +1,12 @@
 package edu.siu.cs.www.parkingspotfinder;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +25,7 @@ public class AccountActivity extends AppCompatActivity {
     private DatabaseReference ref;
 
     private TextView nameText;
+    private Button backArrowButton;
 
     private String name;
     private String email;
@@ -35,13 +38,16 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+        // Get the instance of the user and the database reference
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
         ref = mDatabase.getReference();
         FirebaseUser user = mAuth.getCurrentUser();
         userID = user.getUid();
 
+        // Create the UI items and bind to the code
         nameText = (TextView) findViewById(R.id.textView2);
+        backArrowButton = (Button) findViewById(R.id.backArrowButton);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -55,6 +61,7 @@ public class AccountActivity extends AppCompatActivity {
             }
         };
 
+        // Add listener to get realtime data from the database
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -63,18 +70,30 @@ public class AccountActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "AccountActivity::cannotGetRefSnapshot");
+            }
+        });
 
+        backArrowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent menuActivityStart = new Intent(AccountActivity.this, MenuActivity.class);
+                startActivity(menuActivityStart);
             }
         });
 
     }
 
+    // Get the data from the database for the specific user, create new user object, display info.
     private void displayData(DataSnapshot dataSnapshot) {
         for(DataSnapshot s : dataSnapshot.getChildren()){
             User user = new User();
+
+            // Get the information from the snapshot and add it to the new User object.
             user.setName(s.child(userID).getValue(User.class).getName());
             user.setEmail(s.child(userID).getValue(User.class).getName());
 
+            // Set UI text
             nameText.setText(user.getName());
         }
     }

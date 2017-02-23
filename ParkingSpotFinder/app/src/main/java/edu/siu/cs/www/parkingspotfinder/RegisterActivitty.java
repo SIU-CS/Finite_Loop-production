@@ -73,6 +73,7 @@ public class RegisterActivitty extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog = ProgressDialog.show(RegisterActivitty.this, "Creating User", "Creating your account.", true);
 
                 // Get the information from the different fields
                 email = emailTextField.getText().toString().trim();
@@ -96,7 +97,6 @@ public class RegisterActivitty extends AppCompatActivity {
 
                                 // LOGGING
 //                                Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful() + " USER: "+user.getUid());
-                                 progressDialog = ProgressDialog.show(RegisterActivitty.this, "Creating User", "Creating your account.", true);
 
                                 // If the tasks fail, notify the user
                                 if (!task.isSuccessful()) {
