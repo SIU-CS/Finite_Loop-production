@@ -73,6 +73,7 @@ public class RegisterActivitty extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog = ProgressDialog.show(RegisterActivitty.this, "Creating User", "Creating your account.", true);
 
                 // Get the information from the different fields
                 email = emailTextField.getText().toString().trim();
@@ -91,12 +92,11 @@ public class RegisterActivitty extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 // Organize the user data
                                 HashMap<String, String> userDataMap = new HashMap<String, String>();
-                                userDataMap.put("Name", name);
-                                userDataMap.put("Email", email);
+                                userDataMap.put("name", name);
+                                userDataMap.put("email", email);
 
                                 // LOGGING
-                                Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful() + " USER: "+user.getUid());
-                                 progressDialog = ProgressDialog.show(RegisterActivitty.this, "Creating User", "Creating your account.", true);
+//                                Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful() + " USER: "+user.getUid());
 
                                 // If the tasks fail, notify the user
                                 if (!task.isSuccessful()) {
@@ -104,10 +104,6 @@ public class RegisterActivitty extends AppCompatActivity {
                                     Toast.makeText(RegisterActivitty.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    // Switch the activity back to the loggin
-                                    Intent loginActivity = new Intent(RegisterActivitty.this, LoginActivity.class);
-                                    startActivity(loginActivity);
-
                                     progressDialog.dismiss();
 
                                     // Write the neww user's information to the database
@@ -116,8 +112,8 @@ public class RegisterActivitty extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
 
                                             // Start the login activity after writing user information to the database
-                                            Intent loginActivity = new Intent(RegisterActivitty.this, LoginActivity.class);
-                                            startActivity(loginActivity);
+                                            Intent mapActivity = new Intent(RegisterActivitty.this, MapActivity.class);
+                                            startActivity(mapActivity);
 
                                             // Notify the user that they have been registered
                                             Toast.makeText(RegisterActivitty.this, "Successfully Registered!", Toast.LENGTH_LONG).show();
