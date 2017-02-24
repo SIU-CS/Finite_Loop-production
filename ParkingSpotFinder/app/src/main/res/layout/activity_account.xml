@@ -74,9 +74,7 @@
         android:layout_centerVertical="true"
         android:layout_alignRight="@+id/email"
         android:layout_alignEnd="@+id/email" />
-=======
-=======
->>>>>>> refs/remotes/origin/master
+
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
@@ -86,9 +84,6 @@
         android:layout_toEndOf="@+id/backArrowButton"
         android:layout_marginTop="39dp"
         android:id="@+id/textView2" />
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> refs/remotes/origin/master
+
 
 </RelativeLayout>
