@@ -30,4 +30,47 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/parkrLabel" />
 
+    <Button
+        android:text="Update Information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/delete_account"
+        android:textSize="16sp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:visibility="visible"
+        android:id="@+id/update_information" />
+
+    <Button
+        android:text="Delete Account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/delete_account"
+        android:layout_marginBottom="12dp"
+        android:layout_above="@+id/parkrLabel"
+        android:layout_centerHorizontal="true"
+        android:textSize="16sp"
+        style="@style/Widget.AppCompat.Button.Colored" />
+
+    <TextView
+        android:text="Email:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        android:textSize="18sp"
+        android:layout_above="@+id/update_information"
+        android:layout_alignLeft="@+id/parkrLabel"
+        android:layout_alignStart="@+id/parkrLabel"
+        android:layout_marginBottom="72dp" />
+
+    <TextView
+        android:text="Name:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:textSize="18sp"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/email"
+        android:layout_alignEnd="@+id/email" />
+
 </RelativeLayout>
