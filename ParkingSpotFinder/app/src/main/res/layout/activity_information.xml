@@ -42,7 +42,7 @@
         android:textSize="30dp" />
 
     <TextView
-        android:text="      Parkr and app that will help you find an open parking spot in a lot near you! Feel free to contact us with any questions or comments about our app. We can be reached at parkr@gmail.com "
+        android:text="      Parkr an app that will help you find an open parking spot in a lot near you! Feel free to contact us with any questions or comments about our app. We can be reached at parkr@gmail.com "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp"
