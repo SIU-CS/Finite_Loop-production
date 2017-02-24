@@ -46,7 +46,7 @@ public class AccountActivity extends AppCompatActivity {
         userID = user.getUid();
 
         // Create the UI items and bind to the code
-        nameText = (TextView) findViewById(R.id.textView2);
+        //nameText = (TextView) findViewById(R.id.textView2);
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -94,7 +94,7 @@ public class AccountActivity extends AppCompatActivity {
             user.setEmail(s.child(userID).getValue(User.class).getName());
 
             // Set UI text
-            nameText.setText(user.getName());
+            //nameText.setText(user.getName());
         }
     }
 
