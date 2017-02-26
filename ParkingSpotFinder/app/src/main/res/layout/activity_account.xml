@@ -32,17 +32,6 @@
         android:id="@+id/parkrLabel" />
 
     <Button
-        android:text="Update Information"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/delete_account"
-        android:textSize="16sp"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:visibility="visible"
-        android:id="@+id/update_information" />
-
-    <Button
         android:text="Delete Account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -85,6 +74,18 @@
         android:adjustViewBounds="false"
         android:layout_below="@+id/backArrowButton"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Update Information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:visibility="visible"
+        android:id="@+id/updateAccountButton"
+        android:layout_above="@+id/delete_account"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
