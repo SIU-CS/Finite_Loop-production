@@ -103,7 +103,7 @@ public class AccountActivity extends AppCompatActivity {
 
             // Get the information from the snapshot and add it to the new User object.
             user.setName(s.child(userID).getValue(User.class).getName());
-            user.setEmail(s.child(userID).getValue(User.class).getName());
+            user.setEmail(s.child(userID).getValue(User.class).getEmail());
 
             // Set UI text
             nameText.setText(user.getName());
