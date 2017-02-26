@@ -10,4 +10,17 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.siu.cs.www.parkingspotfinder.UpdateInfo">
 
+    <TextView
+        android:text="Full Name:"
+        android:textcolor="#000000"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameField"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
