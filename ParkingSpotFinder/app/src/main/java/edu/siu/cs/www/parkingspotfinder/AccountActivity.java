@@ -25,7 +25,9 @@ public class AccountActivity extends AppCompatActivity {
     private DatabaseReference ref;
 
     private TextView nameText;
+    private TextView emailText;
     private Button backArrowButton;
+    private Button updateAccntButton;
 
     private String name;
     private String email;
@@ -46,8 +48,10 @@ public class AccountActivity extends AppCompatActivity {
         userID = user.getUid();
 
         // Create the UI items and bind to the code
-        //nameText = (TextView) findViewById(R.id.textView2);
+        nameText = (TextView) findViewById(R.id.name);
+        emailText = (TextView) findViewById(R.id.email);
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
+        updateAccntButton = (Button) findViewById(R.id.updateAccountButton);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -82,6 +86,14 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
+        updateAccntButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent updateAccountAccountActivity = new Intent(AccountActivity.this, UpdateInfo.class);
+                startActivity(updateAccountAccountActivity);
+            }
+        });
+
     }
 
     // Get the data from the database for the specific user, create new user object, display info.
@@ -94,7 +106,8 @@ public class AccountActivity extends AppCompatActivity {
             user.setEmail(s.child(userID).getValue(User.class).getName());
 
             // Set UI text
-            //nameText.setText(user.getName());
+            nameText.setText(user.getName());
+            emailText.setText(user.getEmail());
         }
     }
 
