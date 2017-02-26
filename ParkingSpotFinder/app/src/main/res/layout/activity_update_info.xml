@@ -92,13 +92,12 @@
 
     <TextView
         android:text="Full Name:"
-        android:textcolor="#000000"
+        android:textColor="#000000"
         android:textSize="30dp"
         android:textStyle="bold"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:id="@+id/nameField"
-        android:textColor="@android:color/black"
         android:layout_above="@+id/nameText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
