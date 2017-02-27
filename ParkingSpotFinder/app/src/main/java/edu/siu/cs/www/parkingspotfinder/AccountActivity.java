@@ -1,16 +1,25 @@
 package edu.siu.cs.www.parkingspotfinder;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,17 +33,21 @@ public class AccountActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseUser user;
     private DatabaseReference ref;
+    private DatabaseReference userRef;
 
     private TextView nameText;
     private TextView emailText;
     private Button backArrowButton;
     private Button updateAccntButton;
-    private Button delete_account;
+    private Button deleteAccountButton;
 
     private String name;
     private String email;
     private String userID;
+
+    final Context c = this;
 
     private final static String TAG = "ACCOUNT_ACTIVITY";
 
@@ -47,15 +60,16 @@ public class AccountActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
         ref = mDatabase.getReference();
-        FirebaseUser user = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
         userID = user.getUid();
+        userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
 
         // Create the UI items and bind to the code
         nameText = (TextView) findViewById(R.id.name);
         emailText = (TextView) findViewById(R.id.email);
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
         updateAccntButton = (Button) findViewById(R.id.updateAccountButton);
-        delete_account = (Button) findViewById(R.id.delete_account);
+        deleteAccountButton = (Button) findViewById(R.id.deleteAccountButton);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -82,6 +96,18 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         backArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,18 +123,53 @@ public class AccountActivity extends AppCompatActivity {
                 startActivity(updateAccountAccountActivity);
             }
         });
-        delete_account.setOnClickListener(new View.OnClickListener() {
+
+        deleteAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                user.delete()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Log.d(TAG, "User account deleted.");
-                                }
+                LayoutInflater layoutInflaterAndroid = LayoutInflater.from(c);
+                View mView = layoutInflaterAndroid.inflate(R.layout.user_input_dialog_box, null);
+                AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(c);
+                alertDialogBuilderUserInput.setView(mView);
+
+                final EditText userInputDialogEditText = (EditText) mView.findViewById(R.id.userInputDialog);
+
+                alertDialogBuilderUserInput
+                        .setCancelable(false)
+                        .setPositiveButton("Delete Account", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogBox, int id) {
+                                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(),
+                                        userInputDialogEditText.getText().toString());
+
+                                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Intent startLoginActivity = new Intent(AccountActivity.this, LoginActivity.class);
+                                        startActivity(startLoginActivity);
+                                        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        Log.d(TAG, "DELETE_ACCOUNT_AUTH");
+                                                    }
+                                                });
+                                        userRef.removeValue();
+                                        userRef.goOffline();
+                                        Toast.makeText(AccountActivity.this, "Account Deleted!", Toast.LENGTH_LONG);
+                                    }
+                                });
                             }
-                        });
+                        })
+
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogBox, int id) {
+                                        dialogBox.cancel();
+                                    }
+                                });
+
+                AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
+                alertDialogAndroid.show();
             }
         });
     }
@@ -118,13 +179,16 @@ public class AccountActivity extends AppCompatActivity {
         for(DataSnapshot s : dataSnapshot.getChildren()){
             User user = new User();
 
-            // Get the information from the snapshot and add it to the new User object.
-            user.setName(s.child(userID).getValue(User.class).getName());
-            user.setEmail(s.child(userID).getValue(User.class).getEmail());
+            // Make sure that the data exists on update
+            if(s.child(userID).exists()){
+                // Get the information from the snapshot and add it to the new User object.
+                user.setName(s.child(userID).child("name").getValue().toString());
+                user.setEmail(s.child(userID).child("email").getValue().toString());
 
-            // Set UI text
-            nameText.setText(user.getName());
-            emailText.setText(user.getEmail());
+                // Set UI text
+                nameText.setText(user.getName());
+                emailText.setText(user.getEmail());
+            }
         }
     }
 
