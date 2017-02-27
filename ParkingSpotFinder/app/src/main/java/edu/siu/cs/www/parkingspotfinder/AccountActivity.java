@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +30,7 @@ public class AccountActivity extends AppCompatActivity {
     private TextView emailText;
     private Button backArrowButton;
     private Button updateAccntButton;
+    private Button delete_account;
 
     private String name;
     private String email;
@@ -52,6 +55,7 @@ public class AccountActivity extends AppCompatActivity {
         emailText = (TextView) findViewById(R.id.email);
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
         updateAccntButton = (Button) findViewById(R.id.updateAccountButton);
+        delete_account = (Button) findViewById(R.id.delete_account);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -93,7 +97,20 @@ public class AccountActivity extends AppCompatActivity {
                 startActivity(updateAccountAccountActivity);
             }
         });
-
+        delete_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user.delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d(TAG, "User account deleted.");
+                                }
+                            }
+                        });
+            }
+        });
     }
 
     // Get the data from the database for the specific user, create new user object, display info.
