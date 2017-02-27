@@ -8,7 +8,12 @@ import android.app.AlertDialog.Builder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class UpdateInfo extends AppCompatActivity {
     private Button backButton;
@@ -47,6 +52,5 @@ public class UpdateInfo extends AppCompatActivity {
                 startActivity(menuActivityStart);
             }
         });
-
     }
 }
