@@ -138,26 +138,30 @@ public class AccountActivity extends AppCompatActivity {
                         .setCancelable(false)
                         .setPositiveButton("Delete Account", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogBox, int id) {
-                                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(),
-                                        userInputDialogEditText.getText().toString());
+                                if(userInputDialogEditText.length() != 0) {
+                                    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(),
+                                            userInputDialogEditText.getText().toString());
 
-                                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        Intent startLoginActivity = new Intent(AccountActivity.this, LoginActivity.class);
-                                        startActivity(startLoginActivity);
-                                        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        Log.d(TAG, "DELETE_ACCOUNT_AUTH");
-                                                    }
-                                                });
-                                        userRef.removeValue();
-                                        userRef.goOffline();
-                                        Toast.makeText(AccountActivity.this, "Account Deleted!", Toast.LENGTH_LONG);
-                                    }
-                                });
+                                    user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Intent startLoginActivity = new Intent(AccountActivity.this, LoginActivity.class);
+                                            startActivity(startLoginActivity);
+                                            user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    Log.d(TAG, "DELETE_ACCOUNT_AUTH");
+                                                }
+                                            });
+                                            userRef.removeValue();
+                                            userRef.goOffline();
+                                            Toast.makeText(AccountActivity.this, "Account Deleted!", Toast.LENGTH_LONG);
+                                        }
+                                    });
+                                } if(userInputDialogEditText.length() == 0) {
+                                    Toast.makeText(AccountActivity.this, "Cannot Leave Password Field Empty!", Toast.LENGTH_LONG);
+                                }
                             }
                         })
 
