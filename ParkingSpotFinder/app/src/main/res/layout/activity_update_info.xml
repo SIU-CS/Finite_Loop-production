@@ -14,7 +14,7 @@
         android:text="Change Password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/changePaswwordButton"
+        android:id="@+id/changePasswordButton"
         android:textStyle="normal|bold"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_above="@+id/updateButton"
@@ -32,19 +32,6 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_marginBottom="54dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:text="Update Info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/updateButton"
-        android:textStyle="normal|bold"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_above="@+id/cancelButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
@@ -75,18 +62,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/nameText"
-        android:textSize="30dp"
-        android:layout_marginBottom="35dp"
-        android:layout_above="@+id/emailInput"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <TextView
         android:text="Full Name:"
         android:textColor="#000000"
@@ -95,7 +70,7 @@
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:id="@+id/nameField"
-        android:layout_above="@+id/nameText"
+        android:layout_above="@+id/nameInput"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
@@ -122,5 +97,30 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/parkrLabel" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/nameInput"
+        android:textSize="30dp"
+        android:layout_marginBottom="11dp"
+        android:layout_above="@+id/emailField"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Update Info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/updateButton"
+        android:textStyle="normal|bold"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_above="@+id/cancelButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
