@@ -66,7 +66,7 @@ public class RegisterActivitty extends AppCompatActivity {
         registerButton = (Button) findViewById(R.id.registerBtn);
         cancelButton = (Button) findViewById(R.id.cancelButton);
         emailTextField = (EditText) findViewById(R.id.emailText);
-        nameTextField = (EditText) findViewById(R.id.nameText);
+        nameTextField = (EditText) findViewById(R.id.nameInput);
         passwordTextField = (EditText) findViewById(R.id.passwordText);
         verifyPasswordtextField = (EditText) findViewById(R.id.verifyPasswordText);
 
