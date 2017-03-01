@@ -86,7 +86,6 @@ public class RegisterActivitty extends AppCompatActivity {
                     if(password.equals(verifyPassword)){
 
                         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            FirebaseUser user = mAuth.getCurrentUser();
 
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -104,6 +103,7 @@ public class RegisterActivitty extends AppCompatActivity {
                                     Toast.makeText(RegisterActivitty.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                 } else {
+                                    FirebaseUser user = mAuth.getCurrentUser();
                                     progressDialog.dismiss();
 
                                     // Write the neww user's information to the database
