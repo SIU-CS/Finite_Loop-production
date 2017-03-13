@@ -42,10 +42,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private Button menuButton, searchButton;
     private EditText searchBar;
     private Intent swicthActivityIntent;
+    private MarkerOptions mapMarker;
 
     private GPSTracker gpsTracker;
     private Location mLoc;
-    double lat, lon;
+    private double lat, lon;
+    private LatLng latLng;
+    private String addressText;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -57,7 +60,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -74,21 +77,22 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String loc = searchBar.getText().toString();
-//                List<Address> addressList = null;
-//                if(loc!=null || !loc.equals("")){
-//                    Geocoder geo = new Geocoder(MapActivity.this);
-//                    try {
-//                        List<Address> addresses = geo.getFromLocationName(loc, 1);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    Address addr = addressList.get(0);
-//                    LatLng latlon = new LatLng(addr.getLatitude(), addr.getLongitude());
-//                    mMap.addMarker(new MarkerOptions().position(latlon).title("Test"));
-//                    mMap.animateCamera(CameraUpdateFactory.newLatLng(latlon));
-//                }
+                String g = searchBar.getText().toString();
+
+                Geocoder geocoder = new Geocoder(getBaseContext());
+                List<Address> addresses = null;
+
+                try {
+                    // Getting a maximum of 3 Address that matches the input
+                    // text
+                    addresses = geocoder.getFromLocationName(g, 3);
+                    if (addresses != null && !addresses.equals(""))
+                        search(addresses);
+
+                } catch (Exception e) {
+
+                }
+
             }
         });
 
@@ -126,5 +130,30 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         swicthActivityIntent = new Intent(current, switchTo);
         startActivity(swicthActivityIntent);
     }
+
+    protected void search(List<Address> addresses) {
+
+        Address address = (Address) addresses.get(0);
+        lon = address.getLongitude();
+        lat = address.getLatitude();
+        latLng = new LatLng(address.getLatitude(), address.getLongitude());
+
+        addressText = String.format(
+                "%s, %s",
+                address.getMaxAddressLineIndex() > 0 ? address
+                        .getAddressLine(0) : "", address.getCountryName());
+
+        mapMarker = new MarkerOptions();
+
+        mapMarker.position(latLng);
+        mapMarker.title(addressText);
+
+        mMap.clear();
+        mMap.addMarker(mapMarker);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(100));
+    }
+
+
 }
 
