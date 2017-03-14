@@ -42,6 +42,7 @@ public class AccountActivity extends AppCompatActivity {
     private Button backArrowButton;
     private Button updateAccntButton;
     private Button deleteAccountButton;
+    private Button pageInfoButton;
 
     private String name;
     private String email;
@@ -70,6 +71,7 @@ public class AccountActivity extends AppCompatActivity {
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
         updateAccntButton = (Button) findViewById(R.id.updateAccountButton);
         deleteAccountButton = (Button) findViewById(R.id.deleteAccountButton);
+        pageInfoButton = (Button) findViewById(R.id.pageInfoButton);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -105,6 +107,22 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        pageInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(AccountActivity.this)
+                        .setTitle("Information")
+                        .setMessage("Here you can see your up to date account information.  " +
+                                "You can also select the update the account information button to " +
+                                "change your information or the delete account button to delete your account permanently")
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // Does nothing except close
+                            }}).show();
             }
         });
 
