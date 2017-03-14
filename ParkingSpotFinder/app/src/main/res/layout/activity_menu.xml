@@ -11,6 +11,16 @@
     tools:context="edu.siu.cs.www.parkingspotfinder.MenuActivity">
 
     <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/backArrowButton"
+        android:layout_marginTop="94dp"
+        android:background="@drawable/account" />
+
+    <Button
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:id="@+id/backArrowButton"
@@ -73,7 +83,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="94dp"
         android:id="@+id/accountButton"
         android:background="@drawable/account"
         android:layout_below="@+id/backArrowButton"
@@ -111,5 +121,32 @@
         android:layout_alignBaseline="@+id/accountLabel"
         android:layout_alignBottom="@+id/accountLabel"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/manageSpotButton"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/accountLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/accountLabel"
+        android:layout_below="@+id/accountLabel"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/local" />
+
+    <TextView
+        android:id="@+id/manageSpotLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Manage Spot"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:layout_below="@+id/manageSpotButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="12dp"
+        android:layout_alignRight="@+id/manageSpotButton"
+        android:layout_alignEnd="@+id/manageSpotButton" />
 
 </RelativeLayout>

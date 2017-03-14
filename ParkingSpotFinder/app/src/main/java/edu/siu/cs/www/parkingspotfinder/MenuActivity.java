@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MenuActivity extends AppCompatActivity {
 
-    private Button backArrow, accountButton, informationButton, logOutButton;
+    private Button backArrow, accountButton, informationButton, logOutButton, paymentButton;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
 
@@ -27,6 +27,7 @@ public class MenuActivity extends AppCompatActivity {
         accountButton = (Button) findViewById(R.id.accountButton);
         informationButton = (Button) findViewById(R.id.informationButton);
         logOutButton = (Button) findViewById(R.id.logOutButton);
+        paymentButton = (Button) findViewById(R.id.manageSpotButton);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -80,6 +81,14 @@ public class MenuActivity extends AppCompatActivity {
                                 Toast.makeText(MenuActivity.this, "Logged Out Successfully", Toast.LENGTH_SHORT).show();
                             }})
                         .setNegativeButton(android.R.string.no, null).show();
+            }
+        });
+
+        // Start activity
+        paymentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MenuActivity.this, PaymentActivity.class));
             }
         });
     }
