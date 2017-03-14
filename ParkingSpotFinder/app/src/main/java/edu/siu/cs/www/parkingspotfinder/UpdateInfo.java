@@ -29,6 +29,8 @@ public class UpdateInfo extends AppCompatActivity {
     private Button cancelButton;
     private Button resetPasswordButton;
     private Button saveUpdatedInfoButton;
+    private Button pageInfoButton;
+
     private EditText userName;
     private EditText userEmail;
 
@@ -51,6 +53,8 @@ public class UpdateInfo extends AppCompatActivity {
         cancelButton = (Button) findViewById(R.id.cancelButton);
         resetPasswordButton = (Button) findViewById(R.id.changePasswordButton);
         saveUpdatedInfoButton = (Button) findViewById(R.id.updateButton);
+        pageInfoButton = (Button) findViewById(R.id.pageInfoButton);
+
         userEmail = (EditText) findViewById(R.id.emailInput);
         userName = (EditText) findViewById(R.id.nameInput);
 
@@ -84,6 +88,23 @@ public class UpdateInfo extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        pageInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(UpdateInfo.this)
+                        .setTitle("Information")
+                        .setMessage("Here you can edit your name and email.  " +
+                                "You can also send a password reset email by clicking the change " +
+                                "password button.  Click update info to save the updated information " +
+                                "and cancel to quit.")
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // Does nothing except close
+                            }}).show();
             }
         });
 

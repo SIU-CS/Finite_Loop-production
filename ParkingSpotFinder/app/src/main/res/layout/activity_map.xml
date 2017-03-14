@@ -45,14 +45,32 @@
         android:layout_marginBottom="52dp"
         tools:context="edu.siu.cs.www.parkingspotfinder.MapActivity"/>
 
+    <Button
+        android:id="@+id/zoomInButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="525dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/zoomin" />
+
     <edu.siu.cs.www.parkingspotfinder.CustomTextView
+        android:id="@+id/customTextView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Parkr"
-        android:textSize="30dp"
-        android:textColor="#000000"
-        android:layout_gravity="center"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="260dp"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="260dp"
+        android:text="Parkr"
+        android:textColor="#000000"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/zoomOutButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="525dp"
+        android:layout_marginLeft="315dp"
+        android:background="@drawable/zoomout" />
+
 
 </FrameLayout>
