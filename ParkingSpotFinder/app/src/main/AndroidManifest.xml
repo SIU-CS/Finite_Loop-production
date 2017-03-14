@@ -55,7 +55,8 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".UpdateInfo" />
-        <activity android:name=".DeleteAccountPopup"></activity>
+        <activity android:name=".DeleteAccountPopup" />
+        <activity android:name=".PaymentActivity"></activity>
     </application>
 
 </manifest>
