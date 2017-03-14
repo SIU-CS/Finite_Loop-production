@@ -39,7 +39,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     private GoogleMap mMap;
 
-    private Button menuButton, searchButton;
+    private Button menuButton, searchButton, zoomInButton, zoomOutButton;
     private EditText searchBar;
     private Intent swicthActivityIntent;
     private MarkerOptions mapMarker;
@@ -66,6 +66,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         menuButton = (Button) findViewById(R.id.menuButton);
         searchButton = (Button) findViewById(R.id.searchButton);
+        zoomInButton = (Button) findViewById(R.id.zoomInButton);
+        zoomOutButton = (Button) findViewById(R.id.zoomOutButton);
         searchBar = (EditText) findViewById(R.id.searchLocationBar);
 
         gpsTracker = new GPSTracker(getApplicationContext());
@@ -73,6 +75,22 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         lat = mLoc.getLatitude();
         lon = mLoc.getLongitude();
+
+        zoomInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                float zoomLevel = mMap.getCameraPosition().zoom;
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel+1));
+            }
+        });
+
+        zoomOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                float zoomLevel = mMap.getCameraPosition().zoom;
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel-1));
+            }
+        });
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
