@@ -123,7 +123,7 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:id="@+id/payment"
+        android:id="@+id/manageSpotButton"
         android:layout_width="128dp"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/accountLabel"
@@ -135,18 +135,18 @@
         android:background="@drawable/local" />
 
     <TextView
-        android:id="@+id/paymentLabel"
+        android:id="@+id/manageSpotLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Manage Spot"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="20dp"
-        android:layout_below="@+id/payment"
+        android:layout_below="@+id/manageSpotButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="12dp"
-        android:layout_alignRight="@+id/payment"
-        android:layout_alignEnd="@+id/payment" />
+        android:layout_alignRight="@+id/manageSpotButton"
+        android:layout_alignEnd="@+id/manageSpotButton" />
 
 </RelativeLayout>
