@@ -1,18 +1,18 @@
 # Finite_Loop-production
 CS 435 - Parking spot finder application for Android.
 
-##Members 
+## Members 
 Alejandro Narvaez<br>
 email: agnarvaez@siu.edu<br>
 <hr>
 Maha Almaghshi<br>
 email: mahaalamghshi@siu.edu
 <hr>
-####QA Manager
+<b>QA Manager</b>
 Mohammed Abdulkadir <br> 
 email: mohd.jafar@siu.edu
 <hr>
-####Team Lead: 
+<b>Team Lead:</b> 
 Jacob Reed<br>
 email: jacob.reed95@siu.edu
 
