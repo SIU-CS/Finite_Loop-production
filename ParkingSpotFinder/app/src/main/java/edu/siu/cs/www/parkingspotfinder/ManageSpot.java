@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,9 +14,18 @@ import com.simplify.android.sdk.CardEditor;
 import com.simplify.android.sdk.CardToken;
 import com.simplify.android.sdk.Simplify;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class ManageSpot extends AppCompatActivity {
 
     private final String SIMPLIFY_API_KEY = getResources().getString(R.string.simplify_api_key);
+    private final String TAG = "MANAGE_SPOT_ACTIVITY::";
 
     private Button backArrowButton, pageInfoButton, addMoreTimeButton;
 
@@ -29,6 +39,8 @@ public class ManageSpot extends AppCompatActivity {
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
         pageInfoButton = (Button) findViewById(R.id.pageInfoButton);
         addMoreTimeButton = (Button) findViewById(R.id.addMoreTimeButton);
+
+        addMoreTimeButton.setEnabled(false);
 
         final CardEditor cardEditor = (CardEditor) findViewById(R.id.cardEditor);
 
@@ -50,7 +62,48 @@ public class ManageSpot extends AppCompatActivity {
                 simplify.createCardToken(cardEditor.getCard(), new CardToken.Callback(){
                     @Override
                     public void onSuccess(CardToken cardToken){
-                        // Add POST to PPaaS here
+                        URL serviceURL = null;
+                        HttpURLConnection con = null;
+                        try{
+                            // Configure connection to the PPaaS
+                            serviceURL = new URL("https://parkr-payment-proc.herokuapp.com/charge.php");
+                            con = (HttpURLConnection) serviceURL.openConnection();
+
+                            con.setRequestMethod("POST");
+                            con.setRequestProperty("User-Agent", "Mozilla/5.0");
+                            con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+
+                            // This needs to be changed for when considering time and rate
+                            String urlParams = "simplifyToken="+cardToken.getId()+"&amount=1000";
+
+                            con.setDoOutput(true);
+                            DataOutputStream writeStream = new DataOutputStream(con.getOutputStream());
+                            writeStream.writeBytes(urlParams);
+                            writeStream.flush();
+                            writeStream.close();
+
+                            int respCode = con.getResponseCode();
+                            System.out.println("\nSending 'POST' request to URL : " + serviceURL);
+                            System.out.println("Post parameters : " + urlParams);
+                            System.out.println("Response Code : " + respCode);
+
+                            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                            String inputLine;
+                            StringBuffer response = new StringBuffer();
+                            while ((inputLine = in.readLine()) != null) {
+                                response.append(inputLine);
+                            }
+                            in.close();
+                            //print result
+                            System.out.println(response.toString());
+
+                        } catch (MalformedURLException e){
+                            Log.d(TAG, "MALORMED URL DETECTED");
+                            e.printStackTrace();
+                        } catch (IOException e){
+                            Log.d(TAG, "IO EXCEPTION THROWN");
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override

@@ -24,6 +24,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.drive.Permission;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap;
@@ -69,12 +70,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         zoomInButton = (Button) findViewById(R.id.zoomInButton);
         zoomOutButton = (Button) findViewById(R.id.zoomOutButton);
         searchBar = (EditText) findViewById(R.id.searchLocationBar);
-
-        gpsTracker = new GPSTracker(getApplicationContext());
-        mLoc = gpsTracker.getLoc();
-
-        lat = mLoc.getLatitude();
-        lon = mLoc.getLongitude();
 
         zoomInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,10 +132,17 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+//        gpsTracker = new GPSTracker(getApplicationContext());
+//        mLoc = gpsTracker.getLoc();
+//
+//        lat = mLoc.getLatitude();
+//        lon = mLoc.getLongitude();
+
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(lat, lon);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Test"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng loc = new LatLng(38.7098824, -90.2220897);
+        mMap.addMarker(new MarkerOptions().position(loc).title("Test"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(5));
     }
 
     // Method assists with switching activities
