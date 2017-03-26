@@ -56,6 +56,7 @@
 
         <activity android:name=".UpdateInfo" />
         <activity android:name=".DeleteAccountPopup" />
+        <activity android:name=".ManageSpot" />
         <activity android:name=".PaymentActivity"></activity>
     </application>
 

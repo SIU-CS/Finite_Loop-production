@@ -88,7 +88,7 @@ public class MenuActivity extends AppCompatActivity {
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, PaymentActivity.class));
+                startActivity(new Intent(MenuActivity.this, ManageSpot.class));
             }
         });
     }

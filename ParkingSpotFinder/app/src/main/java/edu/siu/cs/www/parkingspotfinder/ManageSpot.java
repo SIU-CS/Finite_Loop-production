@@ -7,16 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-public class PaymentActivity extends AppCompatActivity {
+public class ManageSpot extends AppCompatActivity {
 
     private Button backArrowButton, pageInfoButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
+        setContentView(R.layout.manage_spot_activity);
 
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
         pageInfoButton = (Button) findViewById(R.id.pageInfoButton);
@@ -24,7 +23,7 @@ public class PaymentActivity extends AppCompatActivity {
         pageInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(PaymentActivity.this)
+                new AlertDialog.Builder(ManageSpot.this)
                         .setTitle("Information")
                         .setMessage("Here you can see and add more time to your current time.  You can also leave the spot if you so choose.")
                         .setIcon(android.R.drawable.ic_dialog_info)
@@ -39,7 +38,7 @@ public class PaymentActivity extends AppCompatActivity {
         backArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PaymentActivity.this, MenuActivity.class));
+                startActivity(new Intent(ManageSpot.this, MenuActivity.class));
             }
         });
     }
