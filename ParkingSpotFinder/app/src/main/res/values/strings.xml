@@ -2,6 +2,7 @@
     <string name="app_name">Parkr</string>
     <string name="title_activity_main">Map</string>
     <string name="google_maps_key">AIzaSyDp-Bgms6I6qkiiaH-_Nd6-fcVyskQTLkQ</string>
+    <string name="simplify_api_key">"sbpb_NTUwMzIxM2EtMGMwNS00N2Y3LTgzMGYtY2YyNjgzNjA2YzUz"</string>
     <string name="title_activity_map">Map</string>
     <string name="time_left_label"><u>Time Left</u></string>
 
