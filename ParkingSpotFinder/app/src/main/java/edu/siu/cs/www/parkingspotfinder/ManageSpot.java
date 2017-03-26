@@ -1,14 +1,17 @@
 package edu.siu.cs.www.parkingspotfinder;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.simplify.android.sdk.CardEditor;
 import com.simplify.android.sdk.CardToken;
@@ -24,10 +27,12 @@ import java.net.URL;
 
 public class ManageSpot extends AppCompatActivity {
 
-    private final String SIMPLIFY_API_KEY = getResources().getString(R.string.simplify_api_key);
+    //private final String SIMPLIFY_API_KEY = getResources().getString(R.string.simplify_api_key);
     private final String TAG = "MANAGE_SPOT_ACTIVITY::";
 
     private Button backArrowButton, pageInfoButton, addMoreTimeButton;
+
+    private ProgressDialog progressDialog;
 
     private Simplify simplify;
 
@@ -35,6 +40,9 @@ public class ManageSpot extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_spot_activity);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
         pageInfoButton = (Button) findViewById(R.id.pageInfoButton);
@@ -45,7 +53,7 @@ public class ManageSpot extends AppCompatActivity {
         final CardEditor cardEditor = (CardEditor) findViewById(R.id.cardEditor);
 
         simplify = new Simplify();
-        simplify.setApiKey(SIMPLIFY_API_KEY);
+        simplify.setApiKey("sbpb_NTUwMzIxM2EtMGMwNS00N2Y3LTgzMGYtY2YyNjgzNjA2YzUz");
 
         // Listen for the changes in state of the card editor
         cardEditor.addOnStateChangedListener(new CardEditor.OnStateChangedListener() {
@@ -59,6 +67,7 @@ public class ManageSpot extends AppCompatActivity {
         addMoreTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog = ProgressDialog.show(ManageSpot.this, "Processing", "Processing payment now.", true);
                 simplify.createCardToken(cardEditor.getCard(), new CardToken.Callback(){
                     @Override
                     public void onSuccess(CardToken cardToken){
@@ -96,6 +105,10 @@ public class ManageSpot extends AppCompatActivity {
                             in.close();
                             //print result
                             System.out.println(response.toString());
+                            progressDialog.dismiss();
+                            Toast.makeText(ManageSpot.this, "Payment Accepted!", Toast.LENGTH_LONG).show();
+
+                            startActivity(new Intent(ManageSpot.this, MenuActivity.class));
 
                         } catch (MalformedURLException e){
                             Log.d(TAG, "MALORMED URL DETECTED");
@@ -109,6 +122,7 @@ public class ManageSpot extends AppCompatActivity {
                     @Override
                     public void onError(Throwable throwable){
                         // Handle errors here
+                        Toast.makeText(ManageSpot.this, "Error: Could not process payment!", Toast.LENGTH_LONG).show();
                     }
                 });
             }
