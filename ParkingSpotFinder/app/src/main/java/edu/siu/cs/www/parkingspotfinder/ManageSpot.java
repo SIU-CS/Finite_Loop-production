@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.simplify.android.sdk.CardEditor;
@@ -31,6 +33,8 @@ public class ManageSpot extends AppCompatActivity {
     private final String TAG = "MANAGE_SPOT_ACTIVITY::";
 
     private Button backArrowButton, pageInfoButton, addMoreTimeButton;
+    private SeekBar addTimeSlider;
+    private TextView rateText, timeToAddText;
 
     private ProgressDialog progressDialog;
 
@@ -47,6 +51,28 @@ public class ManageSpot extends AppCompatActivity {
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
         pageInfoButton = (Button) findViewById(R.id.pageInfoButton);
         addMoreTimeButton = (Button) findViewById(R.id.addMoreTimeButton);
+        addTimeSlider = (SeekBar) findViewById(R.id.seekBar);
+        rateText = (TextView) findViewById(R.id.parkingRate);
+        timeToAddText = (TextView) findViewById(R.id.timeToAdd);
+
+        addTimeSlider.
+
+        addTimeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                timeToAddText.setText(Integer.toString(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         addMoreTimeButton.setEnabled(false);
 

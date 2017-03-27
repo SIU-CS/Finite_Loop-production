@@ -47,8 +47,11 @@
         android:layout_height="100dp"
         android:orientation="horizontal"
         android:layout_below="@+id/timeLeftLabel"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_above="@+id/currentSpotNameLabel">
+        android:layout_above="@+id/currentSpotNameLabel"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/timeToAddLable"
+        android:weightSum="1">
 
         <TextView
             android:id="@+id/hoursLabel"
@@ -57,11 +60,12 @@
             android:gravity="center"
             android:text="00"
             android:textColor="#000000"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+            android:layout_weight="0.12" />
 
         <TextView
             android:id="@+id/colonLabel"
-            android:layout_width="39dp"
+            android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:gravity="center"
             android:text=":"
@@ -75,7 +79,8 @@
             android:gravity="center"
             android:text="00"
             android:textColor="#000000"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+            android:layout_weight="0.14" />
     </LinearLayout>
 
     <TextView
@@ -95,27 +100,13 @@
         android:id="@+id/currentSpotNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Current Spot: "
-        android:textSize="20dp"
-        android:textColor="#000000"
-        android:layout_marginTop="11dp"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:id="@+id/spotName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/currentSpotNameLabel"
         android:text=""
-        android:layout_alignBottom="@+id/currentSpotNameLabel"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textSize="20dp"
+        android:textSize="0dp"
         android:textColor="#000000"
-        android:layout_toRightOf="@+id/timeToAddLable"
-        android:layout_toEndOf="@+id/timeToAddLable" />
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/addMoreTimeButton"
@@ -139,7 +130,6 @@
         android:layout_above="@+id/parkrLabel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="12dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -149,10 +139,8 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/stopwtch"
         android:layout_below="@+id/timeLeftLabel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/spotName"
-        android:layout_toLeftOf="@+id/spotName" />
+        android:layout_toLeftOf="@+id/timeLayout"
+        android:layout_toStartOf="@+id/timeLayout" />
 
     <Button
         android:id="@+id/pageInfoButton"
@@ -189,15 +177,16 @@
         android:id="@+id/timeToAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/timeToAddLable"
-        android:text="00:00"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_alignBaseline="@+id/timeToAddLable"
         android:layout_alignBottom="@+id/timeToAddLable"
+        android:layout_alignLeft="@+id/parkrLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/parkrLabel"
+        android:layout_toEndOf="@+id/timeToAddLable"
+        android:text="00:00"
         android:textColor="#000000"
-        android:textSize="20dp"
-        android:layout_toRightOf="@+id/timeToAddLable"
-        android:layout_toEndOf="@+id/timeToAddLable" />
+        android:textSize="20dp" />
 
     <SeekBar
         android:id="@+id/seekBar"
@@ -216,22 +205,23 @@
         android:text="Rate: $"
         android:textSize="25dp"
         android:textColor="#000000"
-        android:layout_centerVertical="true"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_below="@+id/seekBar"
         android:layout_alignLeft="@+id/menuLabel"
         android:layout_alignStart="@+id/menuLabel"
-        android:layout_marginLeft="14dp"
-        android:layout_marginStart="14dp" />
+        android:layout_marginTop="11dp" />
 
     <TextView
         android:id="@+id/parkingRate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView7"
-        android:layout_toRightOf="@+id/textView7"
         android:text="0.00"
         android:textSize="25dp"
         android:textColor="#000000"
+        android:layout_alignBaseline="@+id/textView7"
         android:layout_alignBottom="@+id/textView7"
+        android:layout_toRightOf="@+id/textView7"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
