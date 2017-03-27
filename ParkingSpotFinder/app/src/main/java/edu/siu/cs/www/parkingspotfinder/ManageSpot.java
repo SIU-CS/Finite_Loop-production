@@ -34,7 +34,7 @@ public class ManageSpot extends AppCompatActivity {
 
     private Button backArrowButton, pageInfoButton, addMoreTimeButton;
     private SeekBar addTimeSlider;
-    private TextView rateText, timeToAddText;
+    private TextView rateText, timeToAdd;
 
     private ProgressDialog progressDialog;
 
@@ -53,14 +53,14 @@ public class ManageSpot extends AppCompatActivity {
         addMoreTimeButton = (Button) findViewById(R.id.addMoreTimeButton);
         addTimeSlider = (SeekBar) findViewById(R.id.seekBar);
         rateText = (TextView) findViewById(R.id.parkingRate);
-        timeToAddText = (TextView) findViewById(R.id.timeToAdd);
+        timeToAdd = (TextView) findViewById(R.id.timeToAddText);
 
-        addTimeSlider.
+        addTimeSlider.setMax(500);
 
         addTimeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                timeToAddText.setText(Integer.toString(progress));
+                timeToAdd.setText("0"+(progress/100)+":"+"0"+"0");
             }
 
             @Override
