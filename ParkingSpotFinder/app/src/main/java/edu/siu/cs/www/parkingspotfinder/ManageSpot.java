@@ -1,14 +1,22 @@
 package edu.siu.cs.www.parkingspotfinder;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.simplify.android.sdk.CardEditor;
 import com.simplify.android.sdk.CardToken;
@@ -21,13 +29,21 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class ManageSpot extends AppCompatActivity {
 
-    private final String SIMPLIFY_API_KEY = getResources().getString(R.string.simplify_api_key);
+    //private final String SIMPLIFY_API_KEY = getResources().getString(R.string.simplify_api_key);
     private final String TAG = "MANAGE_SPOT_ACTIVITY::";
+    private double rate;
+    private final boolean DEBUG = true;
 
     private Button backArrowButton, pageInfoButton, addMoreTimeButton;
+    private Spinner hours, minutes;
+    private TextView rateText;
+
+    private ProgressDialog progressDialog;
 
     private Simplify simplify;
 
@@ -36,16 +52,60 @@ public class ManageSpot extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_spot_activity);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        String[] minuteItems = {"00","15","30"};
+        String[] hourItems = {"00", "01", "02", "03", "04", "05"};
+
+        ArrayAdapter<String> hoursList = new ArrayAdapter<String>
+                (ManageSpot.this, android.R.layout.simple_spinner_dropdown_item, hourItems);
+        ArrayAdapter<String> minutesList = new ArrayAdapter<String>
+                (ManageSpot.this, android.R.layout.simple_spinner_dropdown_item, minuteItems);
+
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
         pageInfoButton = (Button) findViewById(R.id.pageInfoButton);
         addMoreTimeButton = (Button) findViewById(R.id.addMoreTimeButton);
+        rateText = (TextView) findViewById(R.id.parkingRate);
+        minutes = (Spinner) findViewById(R.id.minutesToAdd);
+        hours = (Spinner) findViewById(R.id.hoursToAdd);
+
+        minutes.setAdapter(minutesList);
+        hours.setAdapter(hoursList);
+
+        minutes.setSelection(1);
+        hours.setSelection(1);
 
         addMoreTimeButton.setEnabled(false);
 
         final CardEditor cardEditor = (CardEditor) findViewById(R.id.cardEditor);
 
         simplify = new Simplify();
-        simplify.setApiKey(SIMPLIFY_API_KEY);
+        simplify.setApiKey("sbpb_NTUwMzIxM2EtMGMwNS00N2Y3LTgzMGYtY2YyNjgzNjA2YzUz");
+
+        minutes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setRate();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                return;
+            }
+        });
+
+        hours.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setRate();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                return;
+            }
+        });
 
         // Listen for the changes in state of the card editor
         cardEditor.addOnStateChangedListener(new CardEditor.OnStateChangedListener() {
@@ -59,6 +119,7 @@ public class ManageSpot extends AppCompatActivity {
         addMoreTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog = ProgressDialog.show(ManageSpot.this, "Processing", "Processing payment now.", true);
                 simplify.createCardToken(cardEditor.getCard(), new CardToken.Callback(){
                     @Override
                     public void onSuccess(CardToken cardToken){
@@ -74,7 +135,8 @@ public class ManageSpot extends AppCompatActivity {
                             con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
                             // This needs to be changed for when considering time and rate
-                            String urlParams = "simplifyToken="+cardToken.getId()+"&amount=1000";
+                            String urlParams = "simplifyToken="+cardToken.getId()+"&amount="+
+                                    getMoneyToSend();
 
                             con.setDoOutput(true);
                             DataOutputStream writeStream = new DataOutputStream(con.getOutputStream());
@@ -96,6 +158,10 @@ public class ManageSpot extends AppCompatActivity {
                             in.close();
                             //print result
                             System.out.println(response.toString());
+                            progressDialog.dismiss();
+                            Toast.makeText(ManageSpot.this, "Payment Accepted!", Toast.LENGTH_LONG).show();
+
+                            startActivity(new Intent(ManageSpot.this, MenuActivity.class));
 
                         } catch (MalformedURLException e){
                             Log.d(TAG, "MALORMED URL DETECTED");
@@ -109,6 +175,7 @@ public class ManageSpot extends AppCompatActivity {
                     @Override
                     public void onError(Throwable throwable){
                         // Handle errors here
+                        Toast.makeText(ManageSpot.this, "Error: Could not process payment!", Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -136,5 +203,35 @@ public class ManageSpot extends AppCompatActivity {
                 startActivity(new Intent(ManageSpot.this, MenuActivity.class));
             }
         });
+    }
+
+    public void setRate(){
+        DecimalFormat form = new DecimalFormat("#0.00");
+
+        Double minutesPer = Double.valueOf(minutes.getSelectedItem().toString())/60;
+        Double hoursPer = Double.valueOf(hours.getSelectedItem().toString());
+
+        rate = (minutesPer + hoursPer);
+
+        Log.d(TAG, "RATE::"+form.format(rate));
+
+        rateText.setText(form.format(rate));
+    }
+
+    public String getMoneyToSend(){
+        Double minutesPer = Double.valueOf(minutes.getSelectedItem().toString())/60;
+        Double hoursPer = Double.valueOf(hours.getSelectedItem().toString());
+
+        DecimalFormat form = new DecimalFormat("#0.00");
+
+        rate = (minutesPer + hoursPer);
+
+        String rateToSend = form.format(rate);
+        rateToSend = rateToSend.replaceAll("\\.","");
+
+        if(DEBUG)
+            Log.d(TAG, "MONEY_TO_SEND::"+rateToSend);
+
+        return rateToSend;
     }
 }
