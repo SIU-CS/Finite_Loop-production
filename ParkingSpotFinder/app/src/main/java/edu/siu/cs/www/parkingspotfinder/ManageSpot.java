@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -28,6 +29,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class ManageSpot extends AppCompatActivity {
 
@@ -78,6 +81,30 @@ public class ManageSpot extends AppCompatActivity {
 
         simplify = new Simplify();
         simplify.setApiKey("sbpb_NTUwMzIxM2EtMGMwNS00N2Y3LTgzMGYtY2YyNjgzNjA2YzUz");
+
+        minutes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setRate();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                return;
+            }
+        });
+
+        hours.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setRate();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                return;
+            }
+        });
 
         // Listen for the changes in state of the card editor
         cardEditor.addOnStateChangedListener(new CardEditor.OnStateChangedListener() {
@@ -174,5 +201,18 @@ public class ManageSpot extends AppCompatActivity {
                 startActivity(new Intent(ManageSpot.this, MenuActivity.class));
             }
         });
+    }
+
+    public void setRate(){
+        DecimalFormat form = new DecimalFormat("#0.00");
+
+        Double minutesPer = Double.valueOf(minutes.getSelectedItem().toString())/60;
+        Double hoursPer = Double.valueOf(hours.getSelectedItem().toString());
+
+        rate = (minutesPer + hoursPer);
+
+        Log.d(TAG, "RATE::"+form.format(rate));
+
+        rateText.setText(form.format(rate));
     }
 }
