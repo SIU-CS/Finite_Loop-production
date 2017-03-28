@@ -10,8 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,10 +33,11 @@ public class ManageSpot extends AppCompatActivity {
 
     //private final String SIMPLIFY_API_KEY = getResources().getString(R.string.simplify_api_key);
     private final String TAG = "MANAGE_SPOT_ACTIVITY::";
+    private double rate;
 
     private Button backArrowButton, pageInfoButton, addMoreTimeButton;
-    private SeekBar addTimeSlider;
-    private TextView rateText, timeToAdd;
+    private Spinner hours, minutes;
+    private TextView rateText;
 
     private ProgressDialog progressDialog;
 
@@ -48,31 +51,26 @@ public class ManageSpot extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        String[] minuteItems = {"00","15","30"};
+        String[] hourItems = {"00", "01", "02", "03", "04", "05"};
+
+        ArrayAdapter<String> hoursList = new ArrayAdapter<String>
+                (ManageSpot.this, android.R.layout.simple_spinner_dropdown_item, hourItems);
+        ArrayAdapter<String> minutesList = new ArrayAdapter<String>
+                (ManageSpot.this, android.R.layout.simple_spinner_dropdown_item, minuteItems);
+
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
         pageInfoButton = (Button) findViewById(R.id.pageInfoButton);
         addMoreTimeButton = (Button) findViewById(R.id.addMoreTimeButton);
-        addTimeSlider = (SeekBar) findViewById(R.id.seekBar);
         rateText = (TextView) findViewById(R.id.parkingRate);
-        timeToAdd = (TextView) findViewById(R.id.timeToAddText);
+        minutes = (Spinner) findViewById(R.id.minutesToAdd);
+        hours = (Spinner) findViewById(R.id.hoursToAdd);
 
-        addTimeSlider.setMax(500);
+        minutes.setAdapter(minutesList);
+        hours.setAdapter(hoursList);
 
-        addTimeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                timeToAdd.setText("0"+(progress/100)+":"+"0"+"0");
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
+        minutes.setSelection(1);
+        hours.setSelection(1);
 
         addMoreTimeButton.setEnabled(false);
 
