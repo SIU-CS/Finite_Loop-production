@@ -37,6 +37,7 @@ public class ManageSpot extends AppCompatActivity {
     //private final String SIMPLIFY_API_KEY = getResources().getString(R.string.simplify_api_key);
     private final String TAG = "MANAGE_SPOT_ACTIVITY::";
     private double rate;
+    private final boolean DEBUG = true;
 
     private Button backArrowButton, pageInfoButton, addMoreTimeButton;
     private Spinner hours, minutes;
@@ -134,7 +135,8 @@ public class ManageSpot extends AppCompatActivity {
                             con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
                             // This needs to be changed for when considering time and rate
-                            String urlParams = "simplifyToken="+cardToken.getId()+"&amount=1000";
+                            String urlParams = "simplifyToken="+cardToken.getId()+"&amount="+
+                                    getMoneyToSend();
 
                             con.setDoOutput(true);
                             DataOutputStream writeStream = new DataOutputStream(con.getOutputStream());
@@ -214,5 +216,22 @@ public class ManageSpot extends AppCompatActivity {
         Log.d(TAG, "RATE::"+form.format(rate));
 
         rateText.setText(form.format(rate));
+    }
+
+    public String getMoneyToSend(){
+        Double minutesPer = Double.valueOf(minutes.getSelectedItem().toString())/60;
+        Double hoursPer = Double.valueOf(hours.getSelectedItem().toString());
+
+        DecimalFormat form = new DecimalFormat("#0.00");
+
+        rate = (minutesPer + hoursPer);
+
+        String rateToSend = form.format(rate);
+        rateToSend = rateToSend.replaceAll("\\.","");
+
+        if(DEBUG)
+            Log.d(TAG, "MONEY_TO_SEND::"+rateToSend);
+
+        return rateToSend;
     }
 }
