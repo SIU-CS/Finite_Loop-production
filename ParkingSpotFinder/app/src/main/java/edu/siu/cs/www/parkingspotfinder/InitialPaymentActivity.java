@@ -25,7 +25,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import static java.lang.String.valueOf;
 
 public class InitialPaymentActivity extends AppCompatActivity {
 
@@ -34,7 +42,7 @@ public class InitialPaymentActivity extends AppCompatActivity {
     private final boolean DEBUG = true;
     private Button backArrowButton, pageInfoButton, purchaseButton;
     private SeekBar hoursBar, minutesBar;
-    private TextView parkingRate, hoursToAddText, minutesToAddText;
+    private TextView parkingRate, hoursToAddText, minutesToAddText, timeToLeave;
     private int hours, minutes;
 
     private ProgressDialog progressDialog;
@@ -58,6 +66,7 @@ public class InitialPaymentActivity extends AppCompatActivity {
         parkingRate = (TextView) findViewById(R.id.parkingRate);
         hoursToAddText = (TextView) findViewById(R.id.hoursToAddText);
         minutesToAddText = (TextView) findViewById(R.id.minutesToAddText);
+        timeToLeave = (TextView) findViewById(R.id.timeToLeave);
 
         hoursBar.setMax(24);
 
@@ -68,6 +77,7 @@ public class InitialPaymentActivity extends AppCompatActivity {
                 hoursToAddText.setText(progress + ":");
                 hours = progress;
                 setRate();
+                setTime();
             }
 
             @Override
@@ -92,6 +102,7 @@ public class InitialPaymentActivity extends AppCompatActivity {
                 }
                 minutes = progress;
                 setRate();
+                setTime();
             }
 
             @Override
@@ -218,6 +229,20 @@ public class InitialPaymentActivity extends AppCompatActivity {
         Log.d(TAG, "RATE::" + form.format(rate));
 
         parkingRate.setText(form.format(rate));
+    }
+
+    public void setTime() {
+
+        Calendar cal = Calendar.getInstance(Locale.US);
+
+        String currentTimeString = String.format("%1$tH:%1$tM",cal);
+        int hoursInClock = cal.get(Calendar.HOUR_OF_DAY);
+        int minutesInClock = cal.get(Calendar.MINUTE);
+        cal.add(Calendar.MINUTE, (minutesInClock + minutes));
+        cal.add(Calendar.HOUR_OF_DAY, (hoursInClock + hours));
+        String newTimeString = String.format("%1$tH:%1$tM",cal);
+
+        timeToLeave.setText(newTimeString);
     }
 
     public String getMoneyToSend() {
