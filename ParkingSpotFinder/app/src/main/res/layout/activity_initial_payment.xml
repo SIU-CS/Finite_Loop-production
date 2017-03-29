@@ -183,4 +183,32 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <TextView
+        android:id="@+id/timeToLeaveLabel"
+        android:paddingTop="10dp"
+        android:paddingBottom="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Be back by: "
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:textColor="#000000"
+        android:layout_above="@+id/purchaseButton"
+        android:layout_toRightOf="@+id/hoursLabel"
+        android:layout_toEndOf="@+id/hoursLabel"
+        android:layout_marginBottom="18dp" />
+
+    <TextView
+        android:id="@+id/timeToLeave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0:00"
+        android:textSize="25dp"
+        android:textColor="#000000"
+        android:layout_below="@+id/cardEditor"
+        android:layout_toRightOf="@+id/timeToLeaveLabel"
+        android:layout_alignBaseline="@+id/timeToLeaveLabel"
+
+        android:layout_marginTop="32dp" />
+
 </RelativeLayout>
