@@ -2,42 +2,32 @@ package edu.siu.cs.www.parkingspotfinder;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.net.Uri;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.Manifest;
-import android.widget.Toast;
-import android.support.annotation.*;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.drive.Permission;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
 import java.util.List;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
-
+    DatabaseReference myRef;
     private GoogleMap mMap;
 
     private Button menuButton, searchButton, zoomInButton, zoomOutButton;
@@ -64,6 +54,30 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        myRef = database.getReference().child("lots");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot post : dataSnapshot.getChildren()){
+                    // String spots = dataSnapshot.getValue(String.class).toString();
+                    //DatabaseReference lots = dataSnapshot.getRef().getDatabase().getReference().child("lots");
+                    //String spots = post.child("lots").child("spots").getValue().toString();
+
+                    Double latitude = (Double)post.child("local").child("lat").getValue();
+                    Double longitude = (Double)post.child("local").child("long").getValue();
+                    LatLng local = new LatLng(latitude, longitude);
+                    mMap.addMarker(new MarkerOptions().position(local).title("lots").snippet("spots"));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         menuButton = (Button) findViewById(R.id.menuButton);
         searchButton = (Button) findViewById(R.id.searchButton);
