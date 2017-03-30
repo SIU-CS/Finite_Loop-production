@@ -127,7 +127,7 @@ public class ManageSpot extends AppCompatActivity {
                         HttpURLConnection con = null;
                         try{
                             // Configure connection to the PPaaS
-                            serviceURL = new URL("https://parkr-payment-proc.herokuapp.com/charge.php");
+                            serviceURL = new URL(getString(R.string.connection_string));
                             con = (HttpURLConnection) serviceURL.openConnection();
 
                             con.setRequestMethod("POST");

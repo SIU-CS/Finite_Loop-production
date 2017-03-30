@@ -41,8 +41,7 @@ public class InitialPaymentActivity extends AppCompatActivity {
     private double rate;
     private final boolean DEBUG = true;
     private Button backArrowButton, pageInfoButton, purchaseButton;
-    private SeekBar hoursBar, minutesBar;
-    private TextView parkingRate, hoursToAddText, minutesToAddText, timeToLeave;
+    private TextView parkingRate;
     private int hours, minutes;
 
     private ProgressDialog progressDialog;
@@ -61,58 +60,7 @@ public class InitialPaymentActivity extends AppCompatActivity {
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
         pageInfoButton = (Button) findViewById(R.id.pageInfoButton);
         purchaseButton = (Button) findViewById(R.id.purchaseButton);
-        hoursBar = (SeekBar) findViewById(R.id.hoursBar);
-        minutesBar = (SeekBar) findViewById(R.id.minutesBar);
         parkingRate = (TextView) findViewById(R.id.parkingRate);
-        hoursToAddText = (TextView) findViewById(R.id.hoursToAddText);
-        minutesToAddText = (TextView) findViewById(R.id.minutesToAddText);
-
-        hoursBar.setMax(24);
-
-        hoursBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-            @Override
-            public void onProgressChanged(SeekBar hoursBar, int progress, boolean fromUser) {
-                hoursToAddText.setText(progress + ":");
-                hours = progress;
-                setRate();
-                setTime();
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar hoursBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar hoursBar) {
-            }
-        });
-
-        minutesBar.setMax(59);
-        minutesBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-            @Override
-            public void onProgressChanged(SeekBar minutesBar, int progress, boolean fromUser) {
-                if (progress <10){
-                minutesToAddText.setText("0" + progress);
-                }
-                if (progress >= 10){
-                    minutesToAddText.setText("" + progress);
-                }
-                minutes = progress;
-                setRate();
-                setTime();
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar minutesBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar minutesBar) {
-
-            }
-        });
 
         purchaseButton.setEnabled(false);
 
@@ -140,7 +88,7 @@ public class InitialPaymentActivity extends AppCompatActivity {
                         HttpURLConnection con = null;
                         try {
                             // Configure connection to the PPaaS
-                            serviceURL = new URL("https://parkr-payment-proc.herokuapp.com/charge.php");
+                            serviceURL = new URL(getString(R.string.connection_string));
                             con = (HttpURLConnection) serviceURL.openConnection();
 
                             con.setRequestMethod("POST");
@@ -240,14 +188,9 @@ public class InitialPaymentActivity extends AppCompatActivity {
         cal.add(Calendar.MINUTE, (minutesInClock + minutes));
         cal.add(Calendar.HOUR_OF_DAY, (hoursInClock + hours));
         String newTimeString = String.format("%1$tH:%1$tM",cal);
-
-        timeToLeave.setText(newTimeString);
     }
 
     public String getMoneyToSend() {
-        String minutes = minutesToAddText.getText().toString();
-        String hours = hoursToAddText.getText().toString();
-
         Double minutesPer = Double.valueOf(minutes) / 60;
         Double hoursPer = Double.valueOf(hours);
 
