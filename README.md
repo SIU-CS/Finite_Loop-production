@@ -1,6 +1,8 @@
 # Finite_Loop-production
 CS 435 - Parking spot finder application for Android.
 
+This app helps users to find parking spots, renew parking time.
+
 ## Members 
 Alejandro Narvaez<br>
 email: agnarvaez@siu.edu<br>
