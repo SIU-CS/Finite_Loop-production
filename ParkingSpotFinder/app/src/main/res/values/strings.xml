@@ -5,6 +5,7 @@
     <string name="simplify_api_key">"sbpb_NTUwMzIxM2EtMGMwNS00N2Y3LTgzMGYtY2YyNjgzNjA2YzUz"</string>
     <string name="title_activity_map">Map</string>
     <string name="time_left_label"><u>Time Left</u></string>
+    <string name="connection_string">https://parkr-payment-proc.herokuapp.com/charge.php</string>
 
     <!--
         These are needed for location services provided by the Android Open Source Project
