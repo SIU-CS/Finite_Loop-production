@@ -66,7 +66,6 @@ public class InitialPaymentActivity extends AppCompatActivity {
         parkingRate = (TextView) findViewById(R.id.parkingRate);
         hoursToAddText = (TextView) findViewById(R.id.hoursToAddText);
         minutesToAddText = (TextView) findViewById(R.id.minutesToAddText);
-        timeToLeave = (TextView) findViewById(R.id.timeToLeave);
 
         hoursBar.setMax(24);
 
@@ -120,7 +119,7 @@ public class InitialPaymentActivity extends AppCompatActivity {
         final CardEditor cardEditor = (CardEditor) findViewById(R.id.cardEditor);
 
         simplify = new Simplify();
-        simplify.setApiKey("sbpb_NTUwMzIxM2EtMGMwNS00N2Y3LTgzMGYtY2YyNjgzNjA2YzUz");
+        simplify.setApiKey(getString(R.string.simplify_api_key));
 
         // Listen for the changes in state of the card editor
         cardEditor.addOnStateChangedListener(new CardEditor.OnStateChangedListener() {
