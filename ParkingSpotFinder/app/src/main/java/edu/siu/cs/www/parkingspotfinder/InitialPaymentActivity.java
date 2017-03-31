@@ -9,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +27,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,7 +44,7 @@ public class InitialPaymentActivity extends AppCompatActivity {
     private final boolean DEBUG = true;
     private Button backArrowButton, pageInfoButton, purchaseButton;
     private TextView parkingRate;
-    private int hours, minutes;
+    private Spinner hours, minutes;
 
     private ProgressDialog progressDialog;
 
@@ -57,10 +59,26 @@ public class InitialPaymentActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        String[] minuteOptions = {"00","15","30"};
+        String[] hourOptions = {"00", "01", "02", "03", "04", "05"};
+
+        ArrayAdapter<String> hoursList = new ArrayAdapter<String>
+                (InitialPaymentActivity.this, android.R.layout.simple_spinner_dropdown_item, hourOptions);
+        ArrayAdapter<String> minutesList = new ArrayAdapter<String>
+                (InitialPaymentActivity.this, android.R.layout.simple_spinner_dropdown_item, minuteOptions);
+
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
         pageInfoButton = (Button) findViewById(R.id.pageInfoButton);
         purchaseButton = (Button) findViewById(R.id.purchaseButton);
         parkingRate = (TextView) findViewById(R.id.parkingRate);
+        minutes = (Spinner) findViewById(R.id.minutesSpinner);
+        hours = (Spinner) findViewById(R.id.hoursSpinner);
+
+        minutes.setAdapter(minutesList);
+        hours.setAdapter(hoursList);
+
+        minutes.setSelection(1);
+        hours.setSelection(1);
 
         purchaseButton.setEnabled(false);
 
@@ -68,6 +86,30 @@ public class InitialPaymentActivity extends AppCompatActivity {
 
         simplify = new Simplify();
         simplify.setApiKey(getString(R.string.simplify_api_key));
+
+        minutes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setRate();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                return;
+            }
+        });
+
+        hours.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setRate();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                return;
+            }
+        });
 
         // Listen for the changes in state of the card editor
         cardEditor.addOnStateChangedListener(new CardEditor.OnStateChangedListener() {
@@ -166,8 +208,8 @@ public class InitialPaymentActivity extends AppCompatActivity {
 
     public void setRate() {
 
-        Double minutesPer = Double.valueOf(minutes) / 60;
-        Double hoursPer = Double.valueOf(hours);
+        Double minutesPer = Double.valueOf(minutes.getSelectedItem().toString())/60;
+        Double hoursPer = Double.valueOf(hours.getSelectedItem().toString());
 
         DecimalFormat form = new DecimalFormat("#0.00");
 
@@ -178,21 +220,21 @@ public class InitialPaymentActivity extends AppCompatActivity {
         parkingRate.setText(form.format(rate));
     }
 
-    public void setTime() {
-
-        Calendar cal = Calendar.getInstance(Locale.US);
-
-        String currentTimeString = String.format("%1$tH:%1$tM",cal);
-        int hoursInClock = cal.get(Calendar.HOUR_OF_DAY);
-        int minutesInClock = cal.get(Calendar.MINUTE);
-        cal.add(Calendar.MINUTE, (minutesInClock + minutes));
-        cal.add(Calendar.HOUR_OF_DAY, (hoursInClock + hours));
-        String newTimeString = String.format("%1$tH:%1$tM",cal);
-    }
+//    public void setTime() {
+//
+//        Calendar cal = Calendar.getInstance(Locale.US);
+//
+//        String currentTimeString = String.format("%1$tH:%1$tM",cal);
+//        int hoursInClock = cal.get(Calendar.HOUR_OF_DAY);
+//        int minutesInClock = cal.get(Calendar.MINUTE);
+//        cal.add(Calendar.MINUTE, (minutesInClock + minutes));
+//        cal.add(Calendar.HOUR_OF_DAY, (hoursInClock + hours));
+//        String newTimeString = String.format("%1$tH:%1$tM",cal);
+//    }
 
     public String getMoneyToSend() {
-        Double minutesPer = Double.valueOf(minutes) / 60;
-        Double hoursPer = Double.valueOf(hours);
+        Double minutesPer = Double.valueOf(minutes.getSelectedItem().toString())/60;
+        Double hoursPer = Double.valueOf(hours.getSelectedItem().toString());
 
         DecimalFormat form = new DecimalFormat("#0.00");
 
