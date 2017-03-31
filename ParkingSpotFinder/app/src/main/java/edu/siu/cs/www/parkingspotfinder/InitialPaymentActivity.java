@@ -28,13 +28,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
-import static java.lang.String.valueOf;
 
 public class InitialPaymentActivity extends AppCompatActivity {
 
@@ -219,20 +212,6 @@ public class InitialPaymentActivity extends AppCompatActivity {
 
         parkingRate.setText(form.format(rate));
     }
-
-//    public void setTime() {
-//        int hrs = (Integer.valueOf(hours.getSelectedItem().toString()));
-//        int mins = (Integer.valueOf(minutes.getSelectedItem().toString()));
-//
-//        Calendar cal = Calendar.getInstance(Locale.US);
-//
-//        String currentTimeString = String.format("%1$tH:%1$tM",cal);
-//        int hoursInClock = cal.get(Calendar.HOUR_OF_DAY);
-//        int minutesInClock = cal.get(Calendar.MINUTE);
-//        cal.add(Calendar.MINUTE, (minutesInClock + mins));
-//        cal.add(Calendar.HOUR_OF_DAY, (hoursInClock + hrs));
-//        String newTimeString = String.format("%1$tH:%1$tM",cal);
-//    }
 
     public String getMoneyToSend() {
         Double minutesPer = Double.valueOf(minutes.getSelectedItem().toString())/60;
