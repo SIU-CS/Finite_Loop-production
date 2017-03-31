@@ -34,7 +34,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-
 import static java.lang.String.valueOf;
 
 public class InitialPaymentActivity extends AppCompatActivity {
@@ -66,6 +65,7 @@ public class InitialPaymentActivity extends AppCompatActivity {
                 (InitialPaymentActivity.this, android.R.layout.simple_spinner_dropdown_item, hourOptions);
         ArrayAdapter<String> minutesList = new ArrayAdapter<String>
                 (InitialPaymentActivity.this, android.R.layout.simple_spinner_dropdown_item, minuteOptions);
+
 
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
         pageInfoButton = (Button) findViewById(R.id.pageInfoButton);
@@ -221,14 +221,16 @@ public class InitialPaymentActivity extends AppCompatActivity {
     }
 
 //    public void setTime() {
+//        int hrs = (Integer.valueOf(hours.getSelectedItem().toString()));
+//        int mins = (Integer.valueOf(minutes.getSelectedItem().toString()));
 //
 //        Calendar cal = Calendar.getInstance(Locale.US);
 //
 //        String currentTimeString = String.format("%1$tH:%1$tM",cal);
 //        int hoursInClock = cal.get(Calendar.HOUR_OF_DAY);
 //        int minutesInClock = cal.get(Calendar.MINUTE);
-//        cal.add(Calendar.MINUTE, (minutesInClock + minutes));
-//        cal.add(Calendar.HOUR_OF_DAY, (hoursInClock + hours));
+//        cal.add(Calendar.MINUTE, (minutesInClock + mins));
+//        cal.add(Calendar.HOUR_OF_DAY, (hoursInClock + hrs));
 //        String newTimeString = String.format("%1$tH:%1$tM",cal);
 //    }
 
