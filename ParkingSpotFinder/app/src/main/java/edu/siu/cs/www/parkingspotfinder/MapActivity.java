@@ -25,9 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
-
+//Creating a class and extending Fragment Activity (inheriting)
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
-    DatabaseReference myRef;
+    DatabaseReference myRef; 
     private GoogleMap mMap;
 
     private Button menuButton, searchButton, zoomInButton, zoomOutButton;
@@ -45,6 +45,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
