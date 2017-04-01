@@ -56,6 +56,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        // (firebasedatabase MyRef) is referencing firebase data so (get reference) (get child) is trying to make reference and call the nodes of the firebase tree and creating a new marker then the marker pulls LatLng(Latitude and Longitude) which the location where we want the marker to be in Carbondale ((Engineering building))
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference().child("lots");
         myRef.addValueEventListener(new ValueEventListener() {
