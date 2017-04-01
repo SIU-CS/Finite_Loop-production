@@ -66,7 +66,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                     // String spots = dataSnapshot.getValue(String.class).toString();
                     //DatabaseReference lots = dataSnapshot.getRef().getDatabase().getReference().child("lots");
                     //String spots = post.child("lots").child("spots").getValue().toString();
-
+// Latitude and LatLng which is the location where we want the marker to refer or be in Carbondale Engineering building
                     Double latitude = (Double)post.child("local").child("lat").getValue();
                     Double longitude = (Double)post.child("local").child("long").getValue();
                     LatLng local = new LatLng(latitude, longitude);
