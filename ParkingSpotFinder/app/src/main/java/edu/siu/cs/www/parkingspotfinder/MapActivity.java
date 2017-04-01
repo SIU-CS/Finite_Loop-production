@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 //Creating a class and extending Fragment Activity (inheriting)
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
-    DatabaseReference myRef; 
+    DatabaseReference myRef;
     private GoogleMap mMap;
 
     private Button menuButton, searchButton, zoomInButton, zoomOutButton;
@@ -46,7 +46,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
      */
     private GoogleApiClient client;
 
-
+    // it is a method on protect void and OnCreate that starts an activity and super calls the parents class that (inheriting) in Fragment Activity and set the xml (UI) of the map
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
