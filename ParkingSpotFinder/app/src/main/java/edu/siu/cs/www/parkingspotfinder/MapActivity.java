@@ -28,7 +28,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
-//Creating a class and extending Fragment Activity (inheriting)
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
     DatabaseReference myRef;
     private GoogleMap mMap;
@@ -48,8 +47,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
-    // it is a method on protect void and OnCreate that starts an activity and super calls the parents class that (inheriting) in Fragment Activity and set the xml (UI) of the map
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,40 +55,27 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        // (firebasedatabase MyRef) is referencing firebase data so (get reference) (get child) is trying to make reference and call the nodes of the firebase tree and creating a new marker then the marker pulls LatLng(Latitude and Longitude) which the location where we want the marker to be in Carbondale ((Engineering building))
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference().child("lots");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             //marker to show parking lots from firebase
             public void onDataChange(DataSnapshot dataSnapshot) {
-<<<<<<< HEAD
-                for (DataSnapshot post : dataSnapshot.getChildren()) {
-                    Double latitude = (Double) post.child("local").child("lat").getValue();
-                    Double longitude = (Double) post.child("local").child("long").getValue();
-=======
-                for (DataSnapshot post : dataSnapshot.getChildren()){
-                    // String spots = dataSnapshot.getValue(String.class).toString();
-                    //DatabaseReference lots = dataSnapshot.getRef().getDatabase().getReference().child("lots");
-                    //String spots = post.child("lots").child("spots").getValue().toString();
-// Latitude and LatLng which is the location where we want the marker to refer or be in Carbondale Engineering building
-                    Double latitude = (Double)post.child("local").child("lat").getValue();
-                    Double longitude = (Double)post.child("local").child("long").getValue();
->>>>>>> origin/Spot-Finding-Mohammed-Maha
-                    LatLng local = new LatLng(latitude, longitude);
-                    mMap.addMarker(new MarkerOptions().position(local).title("SIU Engr.Bldn").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).snippet(""));
+                    for (DataSnapshot post : dataSnapshot.getChildren()) {
+                        Double latitude = (Double) post.child("local").child("lat").getValue();
+                        Double longitude = (Double) post.child("local").child("long").getValue();
+                        LatLng local = new LatLng(latitude, longitude);
+                        mMap.addMarker(new MarkerOptions().position(local).title("SIU Engr.Bldn").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).snippet(""));
+                    }
                 }
-            }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-
         });
+
         /**
-         * all parking available parking spots
          myRef = database.getReference().child("lots");
          myRef.child("spots").addListenerForSingleValueEvent(new ValueEventListener() {
         @Override public void onDataChange(DataSnapshot snapshot) {
@@ -219,7 +203,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mMap.addMarker(mapMarker);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(100));
-        //permission to set and use current location
+
+        //permission to set and use current 'location
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
         }
