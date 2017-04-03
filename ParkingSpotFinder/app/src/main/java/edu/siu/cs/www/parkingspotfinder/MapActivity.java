@@ -2,10 +2,12 @@ package edu.siu.cs.www.parkingspotfinder;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -25,7 +28,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
-
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
     DatabaseReference myRef;
     private GoogleMap mMap;
@@ -45,7 +47,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,23 +55,19 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference().child("lots");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
+            //marker to show parking lots from firebase
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot post : dataSnapshot.getChildren()){
-                    // String spots = dataSnapshot.getValue(String.class).toString();
-                    //DatabaseReference lots = dataSnapshot.getRef().getDatabase().getReference().child("lots");
-                    //String spots = post.child("lots").child("spots").getValue().toString();
-
-                    Double latitude = (Double)post.child("local").child("lat").getValue();
-                    Double longitude = (Double)post.child("local").child("long").getValue();
-                    LatLng local = new LatLng(latitude, longitude);
-                    mMap.addMarker(new MarkerOptions().position(local).title("lots").snippet("spots"));
+                    for (DataSnapshot post : dataSnapshot.getChildren()) {
+                        Double latitude = (Double) post.child("local").child("lat").getValue();
+                        Double longitude = (Double) post.child("local").child("long").getValue();
+                        LatLng local = new LatLng(latitude, longitude);
+                        mMap.addMarker(new MarkerOptions().position(local).title("SIU Engr.Bldn").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).snippet(""));
+                    }
                 }
-            }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -78,6 +75,26 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             }
         });
 
+        /**
+         myRef = database.getReference().child("lots");
+         myRef.child("spots").addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override public void onDataChange(DataSnapshot snapshot) {
+        for (DataSnapshot post : snapshot.getChildren()) {
+        String spot1 = (String)post.child("spots").child("one").getValue();
+        String spot2 = (String)post.child("spots").child("two").getValue();
+        String spot3 = (String)post.child("spots").child("three").getValue();
+
+        }
+        }
+
+
+        @Override public void onCancelled(DatabaseError databaseError) {
+
+        }
+
+
+        });
+         **/
 
         menuButton = (Button) findViewById(R.id.menuButton);
         searchButton = (Button) findViewById(R.id.searchButton);
@@ -89,7 +106,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             @Override
             public void onClick(View v) {
                 float zoomLevel = mMap.getCameraPosition().zoom;
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel+1));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel + 1));
             }
         });
 
@@ -97,7 +114,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             @Override
             public void onClick(View v) {
                 float zoomLevel = mMap.getCameraPosition().zoom;
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel-1));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel - 1));
             }
         });
 
@@ -186,6 +203,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mMap.addMarker(mapMarker);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(100));
+
+        //permission to set and use current 'location
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        }
+        mMap.setMyLocationEnabled(true);
+
     }
 
 
