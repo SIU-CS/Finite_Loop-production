@@ -189,8 +189,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                     }
                 });
 
-                if (marker.getTag() != null)
-                    Toast.makeText(MapActivity.this, marker.getTag().toString(), Toast.LENGTH_SHORT).show();
+                // Avoid self tag
+                if (marker.getTag() != null){
+                    Intent selectSpotIntent = new Intent(MapActivity.this, SelectSpotActivity.class);
+                    selectSpotIntent.putExtra("lot-tag", marker.getTag().toString());
+                    startActivity(selectSpotIntent);
+                }
+                    //Toast.makeText(MapActivity.this, marker.getTag().toString(), Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -209,10 +214,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         lat = address.getLatitude();
         latLng = new LatLng(address.getLatitude(), address.getLongitude());
 
-        addressText = String.format(
-                "%s, %s",
-                address.getMaxAddressLineIndex() > 0 ? address
-                        .getAddressLine(0) : "", address.getCountryName());
+        addressText = String.format("%s, %s", address.getMaxAddressLineIndex() > 0 ?
+                address.getAddressLine(0) : "", address.getCountryName());
 
         mapMarker = new MarkerOptions();
 
