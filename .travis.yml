@@ -6,10 +6,13 @@ android:
     - platform-tools
     - build-tools-25.0.2
     - extra-android-m2repository
+    - extra-android-support
+    - extra-google-google_play_services
+    - extra-google-gcm
     - extra-google-m2repository
     - android-25
 
 script:
-- chmod +x ./gradlew
+  - ./gradlew build connectedCheck
 
 after_failure: "cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml"
