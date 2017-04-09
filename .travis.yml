@@ -20,9 +20,10 @@ jdk:
 install: true
 
 before_script:
-  - chmod 777 /ParkingSpotFinder/gradlew
+  - cd ParkingSpotFinder
+  - chmod 777 gradlew
 
 script:
-  - cd /ParkingSpotFinder && ./gradlew assembleRelease --stacktrace
+  - ./gradlew assembleRelease --stacktrace
 
 after_failure: "cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml"
