@@ -24,6 +24,6 @@ before_script:
   - chmod 777 gradlew
 
 script:
-  - ./gradlew assembleRelease --stacktrace
+  - ./gradlew build connectedCheck
 
 after_failure: "cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml"

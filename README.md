@@ -1,4 +1,5 @@
 # Finite_Loop-production
+[![Build Status](https://travis-ci.org/SIU-CS/Finite_Loop-production.svg?branch=master)](https://travis-ci.org/SIU-CS/Finite_Loop-production)
 CS 435 - Parking spot finder application for Android.
 
 This app helps users to find parking spots, renew parking time.
