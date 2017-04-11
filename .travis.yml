@@ -17,7 +17,7 @@ sudo: required
 
 env:
   global:
-    - ANDROID_API_LEVEL = 25
+    - ANDROID_API_LEVEL = android-25
 
 jdk:
   - oraclejdk8
