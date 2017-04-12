@@ -14,6 +14,9 @@ android:
     - sys-img-armeabi-v7a-android-25
     - sys-img-x86_64-android-25
 
+notifications:
+  slack: cs435project:qmrHAon7NzcrcGoYqM67pdMp
+
 sudo: required
 
 jdk:
