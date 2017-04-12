@@ -9,9 +9,11 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,6 +22,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +34,8 @@ import java.util.List;
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
     DatabaseReference myRef;
     private GoogleMap mMap;
+
+    private final String TAG = "MAP_ACTIVITY";
 
     private Button menuButton, searchButton, zoomInButton, zoomOutButton;
     private EditText searchBar;
@@ -64,8 +69,17 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                     for (DataSnapshot post : dataSnapshot.getChildren()) {
                         Double latitude = (Double) post.child("local").child("lat").getValue();
                         Double longitude = (Double) post.child("local").child("long").getValue();
+                        String name = (String) post.child("properties").child("name").getValue();
+                        String tag = (String) post.getKey();
+
                         LatLng local = new LatLng(latitude, longitude);
-                        mMap.addMarker(new MarkerOptions().position(local).title("SIU Engr.Bldn").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).snippet(""));
+
+                        mMap.addMarker(new MarkerOptions().position(local).title(name)
+                                .icon(BitmapDescriptorFactory
+                                        .defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+                                .setTag(tag);
+
+                        Log.d(TAG, "MARKER_MADE::"+tag);
                     }
                 }
 
@@ -75,26 +89,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             }
         });
 
-        /**
-         myRef = database.getReference().child("lots");
-         myRef.child("spots").addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override public void onDataChange(DataSnapshot snapshot) {
-        for (DataSnapshot post : snapshot.getChildren()) {
-        String spot1 = (String)post.child("spots").child("one").getValue();
-        String spot2 = (String)post.child("spots").child("two").getValue();
-        String spot3 = (String)post.child("spots").child("three").getValue();
-
-        }
-        }
-
-
-        @Override public void onCancelled(DatabaseError databaseError) {
-
-        }
-
-
-        });
-         **/
 
         menuButton = (Button) findViewById(R.id.menuButton);
         searchButton = (Button) findViewById(R.id.searchButton);
@@ -174,6 +168,37 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mMap.addMarker(new MarkerOptions().position(loc).title("Test"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(5));
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference spotRef = database.getReference().child("lots");
+
+                spotRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot s : dataSnapshot.getChildren()){
+                            return;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        return;
+                    }
+                });
+
+                // Avoid self tag
+                if (marker.getTag() != null){
+                    Intent selectSpotIntent = new Intent(MapActivity.this, SelectSpotActivity.class);
+                    selectSpotIntent.putExtra("lot-tag", marker.getTag().toString());
+                    startActivity(selectSpotIntent);
+                }
+                    //Toast.makeText(MapActivity.this, marker.getTag().toString(), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
     }
 
     // Method assists with switching activities
@@ -189,10 +214,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         lat = address.getLatitude();
         latLng = new LatLng(address.getLatitude(), address.getLongitude());
 
-        addressText = String.format(
-                "%s, %s",
-                address.getMaxAddressLineIndex() > 0 ? address
-                        .getAddressLine(0) : "", address.getCountryName());
+        addressText = String.format("%s, %s", address.getMaxAddressLineIndex() > 0 ?
+                address.getAddressLine(0) : "", address.getCountryName());
 
         mapMarker = new MarkerOptions();
 

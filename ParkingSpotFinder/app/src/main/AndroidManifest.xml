@@ -59,7 +59,8 @@
         <activity android:name=".DeleteAccountPopup" />
         <activity android:name=".ManageSpot" />
         <activity android:name=".PaymentActivity" />
-        <activity android:name=".InitialPaymentActivity"></activity>
+        <activity android:name=".InitialPaymentActivity" />
+        <activity android:name=".SelectSpotActivity"></activity>
     </application>
 
 </manifest>

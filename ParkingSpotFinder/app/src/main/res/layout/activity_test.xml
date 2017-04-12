@@ -19,9 +19,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:hint="Search...."
-        android:layout_toRightOf="@+id/customTextView"
-        android:layout_toEndOf="@+id/customTextView" />
+        android:hint="Search...." />
 
 
     <Button
