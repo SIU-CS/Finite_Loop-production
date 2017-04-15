@@ -1,12 +1,13 @@
 package edu.siu.cs.www.parkingspotfinder;
 
+import android.graphics.Color;
+import android.support.annotation.IntegerRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,13 +47,21 @@ public class SelectSpotActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot spot : dataSnapshot.getChildren()){
-                        listViewAdapter.add(spot.getValue().toString());
+                        int index = Integer.valueOf(spot.getKey().toString()) - 1;
+                        listViewAdapter.add(spot.child("name").getValue().toString());
+                        Log.d(TAG, "INDEX::"+spots.getCount());
+                        if (spot.child("state").getValue().toString().equals("READY")){
+                            spots.getAdapter().getView(index, null, spots).setEnabled(true);
+                            Log.d(TAG, String.valueOf(spots.getChildCount()));
+                        } else {
+                            spots.getAdapter().getView(index, null, spots).setClickable(false);
+                        }
                     }
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
+                    return;
                 }
             });
         }
