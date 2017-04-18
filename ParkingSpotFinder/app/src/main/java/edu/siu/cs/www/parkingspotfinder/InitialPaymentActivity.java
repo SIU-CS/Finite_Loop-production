@@ -51,7 +51,7 @@ public class InitialPaymentActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        String[] minuteOptions = {"00","15","30"};
+        String[] minuteOptions = {"00","15","30", "45"};
         String[] hourOptions = {"00", "01", "02", "03", "04", "05"};
 
         ArrayAdapter<String> hoursList = new ArrayAdapter<String>
