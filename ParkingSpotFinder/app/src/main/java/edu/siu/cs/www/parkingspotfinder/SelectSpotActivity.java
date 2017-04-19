@@ -55,7 +55,9 @@ public class SelectSpotActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot spot : dataSnapshot.getChildren()){
-                        spotNames.add(spot.child("name").getValue().toString());
+                        if(spot.child("state").getValue().equals("READY")){
+                            spotNames.add(spot.child("name").getValue().toString());
+                        }
                         if(DEBUG){
                             Log.d(TAG, Arrays.toString(spotNames.toArray()));
                         }
@@ -78,8 +80,9 @@ public class SelectSpotActivity extends AppCompatActivity {
                 mRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        String Test = dataSnapshot.child(String.valueOf(position+1)).child("state").getValue().toString();
-                        Log.d(TAG, Test);
+//                        int spotNumber =
+//                        String Test = dataSnapshot.child(String.valueOf(position+1)).child("state").getValue().toString();
+//                        Log.d(TAG, Test);
                     }
 
                     @Override
