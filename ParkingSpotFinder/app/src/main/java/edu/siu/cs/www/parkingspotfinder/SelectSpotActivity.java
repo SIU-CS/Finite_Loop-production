@@ -8,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,8 +32,11 @@ public class SelectSpotActivity extends AppCompatActivity {
 
     private ArrayList<String> spotNames = new ArrayList<String>();
     private ArrayAdapter<String> listViewAdapter;
+    private String tag;
 
-    private DatabaseReference mRef;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    private DatabaseReference mRef, sRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +46,16 @@ public class SelectSpotActivity extends AppCompatActivity {
         spots = (ListView) findViewById(R.id.spotList);
 
         Bundle extras = getIntent().getExtras();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         if (extras != null){
-            String tag = extras.getString("lot-tag");
+            tag = extras.getString("lot-tag");
             mRef = database.getReference().child("lots").child(tag).child("spots");
             Log.d(TAG, "GETTING::"+tag);
             mRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot spot : dataSnapshot.getChildren()){
-//                        int index = Integer.valueOf(spot.getKey().toString()) - 1;
                         spotNames.add(spot.child("name").getValue().toString());
-
                         if(DEBUG){
                             Log.d(TAG, Arrays.toString(spotNames.toArray()));
                         }
@@ -61,10 +63,6 @@ public class SelectSpotActivity extends AppCompatActivity {
                     listViewAdapter = new ArrayAdapter<String>
                             (SelectSpotActivity.this, android.R.layout.simple_spinner_dropdown_item, spotNames);
                     spots.setAdapter(listViewAdapter);
-
-                    if(DEBUG){
-                        Log.d(TAG, String.valueOf(listViewAdapter.getCount()));
-                    }
                 }
 
                 @Override
@@ -73,5 +71,12 @@ public class SelectSpotActivity extends AppCompatActivity {
                 }
             });
         }
+
+        spots.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
     }
 }
