@@ -80,9 +80,9 @@ public class SelectSpotActivity extends AppCompatActivity {
                 mRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-//                        int spotNumber =
-//                        String Test = dataSnapshot.child(String.valueOf(position+1)).child("state").getValue().toString();
-//                        Log.d(TAG, Test);
+                        int spotNumber = Integer.valueOf(spots.getItemAtPosition(position).toString().replace("Spot #", ""));
+                        String Test = dataSnapshot.child(String.valueOf(spotNumber)).child("state").getValue().toString();
+                        Log.d(TAG, ""+Test);
                     }
 
                     @Override
