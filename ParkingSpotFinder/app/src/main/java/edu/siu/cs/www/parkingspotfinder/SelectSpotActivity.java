@@ -1,9 +1,6 @@
 package edu.siu.cs.www.parkingspotfinder;
 
-import android.graphics.Color;
-import android.support.annotation.BoolRes;
-import android.support.annotation.IntegerRes;
-import android.support.annotation.StringDef;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,7 +15,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -36,7 +31,7 @@ public class SelectSpotActivity extends AppCompatActivity {
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    private DatabaseReference mRef, sRef;
+    private DatabaseReference mRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,14 +75,24 @@ public class SelectSpotActivity extends AppCompatActivity {
                 mRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        int spotNumber = Integer.valueOf(spots.getItemAtPosition(position).toString().replace("Spot #", ""));
-                        String Test = dataSnapshot.child(String.valueOf(spotNumber)).child("state").getValue().toString();
-                        Log.d(TAG, ""+Test);
+                        String spotNumber = spots.getItemAtPosition(position).toString().replace("Spot #", "");
+                        Log.d(TAG,"SPOT_NUMBER::"+spotNumber);
+
+                        // Add the needed information to pass it to the next activity
+                        Intent payForSpot = new Intent(SelectSpotActivity.this, InitialPaymentActivity.class);
+                        payForSpot.putExtra("lot-name", tag);
+                        payForSpot.putExtra("spot-num", spotNumber);
+
+                        // Set the state to occupied to prevent others trying to reserve the same spot
+                        mRef.child(spotNumber).child("state").setValue("OCC");
+
+                        // Start the next activity
+                        startActivity(payForSpot);
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
+                        return;
                     }
                 });
             }

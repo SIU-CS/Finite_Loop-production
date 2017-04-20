@@ -16,6 +16,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.simplify.android.sdk.CardEditor;
 import com.simplify.android.sdk.CardToken;
 import com.simplify.android.sdk.Simplify;
@@ -32,16 +37,18 @@ import java.text.DecimalFormat;
 public class InitialPaymentActivity extends AppCompatActivity {
 
     private final String TAG = "PAYMENT_ACTIVITY::";
+    private String lotID, spotID;
     private double rate;
     private final boolean DEBUG = true;
     private Button backArrowButton, pageInfoButton, purchaseButton;
-    private TextView parkingRate;
+    private TextView parkingRate, lotName, spotName;
     private Spinner hours, minutes;
 
     private ProgressDialog progressDialog;
 
     private Simplify simplify;
-
+    private DatabaseReference mRef;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +66,14 @@ public class InitialPaymentActivity extends AppCompatActivity {
         ArrayAdapter<String> minutesList = new ArrayAdapter<String>
                 (InitialPaymentActivity.this, android.R.layout.simple_spinner_dropdown_item, minuteOptions);
 
+        Bundle extras = getIntent().getExtras();
 
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
         pageInfoButton = (Button) findViewById(R.id.pageInfoButton);
         purchaseButton = (Button) findViewById(R.id.purchaseButton);
         parkingRate = (TextView) findViewById(R.id.parkingRate);
+        lotName = (TextView) findViewById(R.id.lotNameTextView);
+        spotName = (TextView) findViewById(R.id.spotNameTextView);
         minutes = (Spinner) findViewById(R.id.minutesSpinner);
         hours = (Spinner) findViewById(R.id.hoursSpinner);
 
@@ -79,6 +89,29 @@ public class InitialPaymentActivity extends AppCompatActivity {
 
         simplify = new Simplify();
         simplify.setApiKey(getString(R.string.simplify_api_key));
+
+        mRef = database.getReference();
+
+        if(extras != null){
+            lotID = extras.getString("lot-name");
+            spotID = extras.getString("spot-num");
+
+            mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String lot = dataSnapshot.child("lots").child(lotID).child("properties").child("name").getValue().toString();
+                    String spot = dataSnapshot.child("lots").child(lotID).child("spots").child(spotID).child("name").getValue().toString();
+
+                    lotName.setText(lot);
+                    spotName.setText(spot);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    return;
+                }
+            });
+        }
 
         minutes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -194,6 +227,7 @@ public class InitialPaymentActivity extends AppCompatActivity {
         backArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mRef.child("lots").child(lotID).child("spots").child(spotID).child("state").setValue("READY");
                 startActivity(new Intent(InitialPaymentActivity.this, MapActivity.class));
             }
         });

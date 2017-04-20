@@ -16,6 +16,7 @@
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:text="0.00"
+        android:paddingLeft="10dp"
         android:textColor="#000000"
         android:textSize="35dp"
         android:layout_alignBaseline="@+id/rateLabel"
@@ -60,26 +61,26 @@
 
     <TextView
         android:id="@+id/rateLabel"
-        android:paddingTop="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rate: $"
-        android:textSize="35dp"
-        android:paddingLeft="31dp"
-        android:textColor="#000000"
-        android:layout_marginBottom="23dp"
         android:layout_above="@+id/purchaseButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginBottom="23dp"
         android:layout_toLeftOf="@+id/parkrLabel"
-        android:layout_toStartOf="@+id/parkrLabel" />
+        android:layout_toStartOf="@+id/parkrLabel"
+        android:paddingTop="15dp"
+        android:gravity="right"
+        android:text="$"
+        android:textColor="#000000"
+        android:textSize="35dp" />
 
     <com.simplify.android.sdk.CardEditor
         android:id="@+id/cardEditor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="250dp"
-        android:layout_above="@+id/rateLabel"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -112,24 +113,26 @@
         android:layout_height="wrap_content"
         android:text="Time To Set: "
         android:textSize="20dp"
-        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:textColor="#000000"
-        android:layout_marginTop="200dp"/>
+        android:layout_marginTop="39dp"
+        android:layout_below="@+id/spotNameTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Spinner
         android:id="@+id/hoursSpinner"
-        android:layout_width="115dp"
+        android:layout_width="105dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/minutesSpinner"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/minutesLabel"
+        android:layout_toRightOf="@+id/rateLabel" />
 
     <Spinner
         android:id="@+id/minutesSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/timeToSetLabel"
-        android:layout_toEndOf="@+id/hoursSpinner"
-        android:layout_toRightOf="@+id/hoursSpinner" />
+        android:layout_toEndOf="@+id/hoursSpinner" />
 
     <TextView
         android:id="@+id/hoursLabel"
@@ -138,7 +141,9 @@
         android:text="Hours"
         android:textColor="#000000"
         android:layout_above="@+id/hoursSpinner"
-        android:layout_centerHorizontal="true" />
+        android:layout_toLeftOf="@+id/minutesSpinner"
+        android:layout_alignLeft="@+id/hoursSpinner"
+        android:layout_alignStart="@+id/hoursSpinner" />
 
     <TextView
         android:id="@+id/minutesLabel"
@@ -147,26 +152,43 @@
         android:text="Minutes"
         android:textColor="#000000"
         android:layout_above="@+id/minutesSpinner"
-        android:layout_toLeftOf="@+id/pageInfoButton"
-        android:layout_toStartOf="@+id/pageInfoButton" />
+        android:layout_toRightOf="@+id/hoursSpinner"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/card"
-        android:layout_above="@+id/purchaseButton"
-        android:layout_toEndOf="@+id/hoursSpinner"
-        android:layout_toRightOf="@+id/hoursSpinner" />
+        android:layout_above="@+id/purchaseButton" />
 
-    <ImageView
-        android:id="@+id/imageView6"
+    <TextView
+        android:id="@+id/lotNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/noun_95545_cc"
+        android:layout_marginTop="24dp"
+        android:text="lot-name"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:gravity="center"
         android:layout_below="@+id/menuLabel"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/hoursLabel"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"/>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/spotNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="spot-name"
+        android:textSize="15sp"
+        android:textColor="#000000"
+        android:layout_below="@+id/lotNameTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
