@@ -190,6 +190,8 @@ public class InitialPaymentActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             Toast.makeText(InitialPaymentActivity.this, "Payment Accepted!", Toast.LENGTH_LONG).show();
 
+                            mRef.child("lots").child(lotID).child("spots").child(spotID).child("state").setValue("RES");
+
                             startActivity(new Intent(InitialPaymentActivity.this, MenuActivity.class));
 
                         } catch (MalformedURLException e) {

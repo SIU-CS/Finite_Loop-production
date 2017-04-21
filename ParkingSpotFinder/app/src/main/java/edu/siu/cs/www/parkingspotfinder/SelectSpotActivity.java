@@ -1,6 +1,7 @@
 package edu.siu.cs.www.parkingspotfinder;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,6 +61,7 @@ public class SelectSpotActivity extends AppCompatActivity {
                     listViewAdapter = new ArrayAdapter<String>
                             (SelectSpotActivity.this, android.R.layout.simple_spinner_dropdown_item, spotNames);
                     spots.setAdapter(listViewAdapter);
+                    spots.setBackgroundColor(Color.rgb(249, 157, 77));
                 }
 
                 @Override
