@@ -76,7 +76,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
                         mMap.addMarker(new MarkerOptions().position(local).title(name)
                                 .icon(BitmapDescriptorFactory
-                                        .defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+                                        .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
                                 .setTag(tag);
 
                         Log.d(TAG, "MARKER_MADE::"+tag);
