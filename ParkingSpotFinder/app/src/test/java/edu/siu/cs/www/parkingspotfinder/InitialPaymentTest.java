@@ -14,8 +14,6 @@ import org.robolectric.annotation.Config;
 /**
  * Created by Jacob Reed on 4/25/2017.
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
 public class InitialPaymentTest extends TestCase {
     InitialPaymentActivity initialPayment;
 

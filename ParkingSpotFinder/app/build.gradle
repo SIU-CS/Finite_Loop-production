@@ -23,12 +23,8 @@ android {
     }
     productFlavors {
     }
-    sourceSets{
-        test {
-            java.srcDirs = ['src/test/java']
-        }
-    }
 }
+
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
