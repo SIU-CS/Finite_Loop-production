@@ -8,7 +8,7 @@ import junit.framework.TestSuite;
 
 public class ParkrTestSuite extends TestSuite {
     public static TestSuite suite(){
-        Class[] listOfTest = {};
+        Class[] listOfTest = {InitialPaymentTest.class, ManageSpotTest.class};
 
         TestSuite suite = new TestSuite(listOfTest);
 
