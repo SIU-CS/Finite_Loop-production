@@ -42,8 +42,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private Intent swicthActivityIntent;
     private MarkerOptions mapMarker;
 
-    private GPSTracker gpsTracker;
-    private Location mLoc;
+
     private double lat, lon;
     private LatLng latLng;
     private String addressText;
@@ -51,11 +50,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private GoogleApiClient client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -157,11 +157,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-//        gpsTracker = new GPSTracker(getApplicationContext());
-//        mLoc = gpsTracker.getLoc();
-//
-//        lat = mLoc.getLatitude();
-//        lon = mLoc.getLongitude();
+
 
         // Add a marker in Sydney and move the camera
         LatLng loc = new LatLng(38.7098824, -90.2220897);
@@ -195,7 +191,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                     selectSpotIntent.putExtra("lot-tag", marker.getTag().toString());
                     startActivity(selectSpotIntent);
                 }
-                    //Toast.makeText(MapActivity.this, marker.getTag().toString(), Toast.LENGTH_SHORT).show();
+
                 return false;
             }
         });

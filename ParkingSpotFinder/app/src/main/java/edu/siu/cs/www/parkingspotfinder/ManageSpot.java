@@ -81,6 +81,7 @@ public class ManageSpot extends AppCompatActivity {
         final CardEditor cardEditor = (CardEditor) findViewById(R.id.cardEditor);
 
         simplify = new Simplify();
+
         simplify.setApiKey(getString(R.string.simplify_api_key));
 
         minutes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
