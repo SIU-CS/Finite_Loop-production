@@ -41,6 +41,6 @@ before_script:
 
 script:
   - ./gradlew build connectedCheck
-  - ./gradlew test
+  - ./gradlew robolectric
 
 after_failure: "cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml"

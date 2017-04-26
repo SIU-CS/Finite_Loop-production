@@ -4,11 +4,15 @@ import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 /**
  * Created by Jacob Reed on 4/25/2017.
  */
-
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class UpdateInfoTest extends TestCase {
     UpdateInfo info;
 
