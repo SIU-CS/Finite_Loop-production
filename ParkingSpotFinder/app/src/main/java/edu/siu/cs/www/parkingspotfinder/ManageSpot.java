@@ -33,8 +33,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 public class ManageSpot extends AppCompatActivity {
-
-    //private final String SIMPLIFY_API_KEY = getResources().getString(R.string.simplify_api_key);
+    
     private final String TAG = "MANAGE_SPOT_ACTIVITY::";
     private double rate;
     private final boolean DEBUG = true;
