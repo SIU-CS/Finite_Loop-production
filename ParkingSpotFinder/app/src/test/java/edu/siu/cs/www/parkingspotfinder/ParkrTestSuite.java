@@ -2,6 +2,10 @@ package edu.siu.cs.www.parkingspotfinder;
 
 import junit.framework.TestSuite;
 
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+
 /**
  * Created by Jacob Reed on 4/25/2017.
  */
