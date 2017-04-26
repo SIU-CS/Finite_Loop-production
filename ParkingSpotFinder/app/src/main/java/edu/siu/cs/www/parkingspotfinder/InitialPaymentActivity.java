@@ -48,7 +48,7 @@ public class InitialPaymentActivity extends AppCompatActivity {
 
     private Simplify simplify;
     private DatabaseReference mRef;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +84,8 @@ public class InitialPaymentActivity extends AppCompatActivity {
         hours.setSelection(1);
 
         purchaseButton.setEnabled(false);
+
+        database = FirebaseDatabase.getInstance();
 
         final CardEditor cardEditor = (CardEditor) findViewById(R.id.cardEditor);
 
@@ -236,28 +238,22 @@ public class InitialPaymentActivity extends AppCompatActivity {
     }
 
     public void setRate() {
+        Float minutesPer = Float.valueOf(minutes.getSelectedItem().toString())/60;
+        Float hoursPer = Float.valueOf(hours.getSelectedItem().toString());
+        parkingRate.setText(calculateRate(minutesPer, hoursPer));
+    }
 
-        Double minutesPer = Double.valueOf(minutes.getSelectedItem().toString())/60;
-        Double hoursPer = Double.valueOf(hours.getSelectedItem().toString());
-
+    public String calculateRate(float minutesRate, float hoursRate){
         DecimalFormat form = new DecimalFormat("#0.00");
-
-        rate = (minutesPer + hoursPer);
-
-        Log.d(TAG, "RATE::" + form.format(rate));
-
-        parkingRate.setText(form.format(rate));
+        rate = (minutesRate + hoursRate);
+        return form.format(rate);
     }
 
     public String getMoneyToSend() {
-        Double minutesPer = Double.valueOf(minutes.getSelectedItem().toString())/60;
-        Double hoursPer = Double.valueOf(hours.getSelectedItem().toString());
+        Float minutesPer = Float.valueOf(minutes.getSelectedItem().toString())/60;
+        Float hoursPer = Float.valueOf(hours.getSelectedItem().toString());
 
-        DecimalFormat form = new DecimalFormat("#0.00");
-
-        rate = (minutesPer + hoursPer);
-
-        String rateToSend = form.format(rate);
+        String rateToSend = calculateRate(minutesPer, hoursPer);
         rateToSend = rateToSend.replaceAll("\\.", "");
 
         if (DEBUG)

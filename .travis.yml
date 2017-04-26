@@ -1,3 +1,8 @@
+# YOU AREN'T BEIGN CUTE.  IF YOU'RE GOING TO CHEAT IN A 400 LEVEL COURSE YOU ARE A SAD PERSON.
+# IF YOU NEED HELP PLEASE ASK JAKE.  HE ISN'T GOING TO DO YOUR WORK FOR YOU SINCE YOU ARE 
+# AN ADULT. THIS WILL NOT WORK FOR YOUR PROJECT AND IS BUILT SPECIFICALLY TO FIT OURS.  
+# ********* DON'T CHEAT! *********
+
 language: android
 android:
   components:
@@ -15,7 +20,7 @@ android:
     - sys-img-x86_64-android-25
 
 notifications:
-  slack: cs435project:qmrHAon7NzcrcGoYqM67pdMp
+  slack: ${SLACK_API_KEY}
 
 sudo: required
 
@@ -41,5 +46,6 @@ before_script:
 
 script:
   - ./gradlew build connectedCheck
+  - ./gradlew test
 
 after_failure: "cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml"
