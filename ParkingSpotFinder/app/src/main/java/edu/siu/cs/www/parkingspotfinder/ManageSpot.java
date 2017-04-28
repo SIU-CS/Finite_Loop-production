@@ -3,18 +3,15 @@ package edu.siu.cs.www.parkingspotfinder;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.FloatProperty;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +28,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
 public class ManageSpot extends AppCompatActivity {
 
@@ -40,7 +36,7 @@ public class ManageSpot extends AppCompatActivity {
     private double rate;
     private final boolean DEBUG = true;
 
-    private Button backArrowButton, pageInfoButton, addMoreTimeButton;
+    private Button backArrowButton, pageInfoButton, addMoreTimeButton, leaveSpotButton;
     private Spinner hours, minutes;
     private TextView rateText;
 
@@ -67,6 +63,7 @@ public class ManageSpot extends AppCompatActivity {
         backArrowButton = (Button) findViewById(R.id.backArrowButton);
         pageInfoButton = (Button) findViewById(R.id.pageInfoButton);
         addMoreTimeButton = (Button) findViewById(R.id.addMoreTimeButton);
+        leaveSpotButton = (Button) findViewById(R.id.leaveSpotButton);
         rateText = (TextView) findViewById(R.id.parkingRate);
         minutes = (Spinner) findViewById(R.id.minutesToAdd);
         hours = (Spinner) findViewById(R.id.hoursToAdd);
@@ -182,6 +179,12 @@ public class ManageSpot extends AppCompatActivity {
             }
         });
 
+        //notification to let user know there time is almost up
+       /** NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.notification_icon)
+                .setContentTitle("Time Expiration")
+                .setContentText("Your time is almost up"); **/
+
 
         pageInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,11 +194,18 @@ public class ManageSpot extends AppCompatActivity {
                         .setMessage("Here you can see and add more time to your current time.  You can also leave the spot if you so choose.")
                         .setIcon(android.R.drawable.ic_dialog_info)
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
+                            public void onClick(DialogInterface dialog, int leaveSpotButton) {
                                 // Does nothing except close
                             }}).show();
             }
         });
+        leaveSpotButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                startActivity (new Intent(ManageSpot.this, MapActivity.class));
+            }
+
+        });
+
 
         // Start the menu again if the user decides to go back
         backArrowButton.setOnClickListener(new View.OnClickListener() {
@@ -205,6 +215,7 @@ public class ManageSpot extends AppCompatActivity {
             }
         });
     }
+
 
     public void setRate(){
         Float minutesPer = Float.valueOf(minutes.getSelectedItem().toString())/60;
