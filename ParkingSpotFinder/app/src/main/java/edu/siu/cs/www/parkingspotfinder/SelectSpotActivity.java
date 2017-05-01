@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +30,7 @@ public class SelectSpotActivity extends AppCompatActivity {
     private ArrayList<String> spotNames = new ArrayList<String>();
     private ArrayAdapter<String> listViewAdapter;
     private String tag;
-
+    private Button backArrowButton;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     private DatabaseReference mRef;
@@ -42,6 +43,7 @@ public class SelectSpotActivity extends AppCompatActivity {
         spots = (ListView) findViewById(R.id.spotList);
 
         Bundle extras = getIntent().getExtras();
+        backArrowButton = (Button) findViewById(R.id.backArrowButton);
 
         if (extras != null){
             tag = extras.getString("lot-tag");
@@ -67,6 +69,13 @@ public class SelectSpotActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     return;
+                }
+            });
+
+            backArrowButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v){
+                    startActivity(new Intent(SelectSpotActivity.this, MapActivity.class));
                 }
             });
         }
