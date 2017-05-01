@@ -1,6 +1,5 @@
 package edu.siu.cs.www.parkingspotfinder;
 
-import android.*;
 import android.Manifest;
 import android.app.Service;
 import android.content.Context;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.content.ContextCompat;
 
-import java.security.Permission;
 
 /**
  * Created by jacobreed on 2/23/17.
