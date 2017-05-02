@@ -160,7 +160,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         LatLng loc = new LatLng(38.7098824, -90.2220897);
         mMap.addMarker(new MarkerOptions().position(loc).title("Test"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(5));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -218,7 +218,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mMap.clear();
         mMap.addMarker(mapMarker);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(100));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
         //permission to set and use current 'location
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
