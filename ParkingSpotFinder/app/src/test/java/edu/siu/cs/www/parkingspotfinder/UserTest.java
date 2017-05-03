@@ -13,48 +13,40 @@ public class UserTest extends TestCase {
     private User userinfo;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         userinfo = new User();
     }
 
     @Test
-    public void testGetName(){
+    public void testGetName() {
         String name;
 
-        name = "Moh'd";
-        assertEquals("Moh'd", userinfo.getName(name));
+        name = "blue";
+        assertEquals("blue", name);
 
-        name = "Jake";
-        assertEquals("Jake", userinfo.getName(name));
-
-        name = "Maha";
-        assertEquals("Maha", userinfo.getName(name));
-
-        name = "Alejandro";
-        assertEquals("Alejandro", userinfo.getName(name));
+        name = "mohd";
+        assertEquals("mohd", name);
 
         name = "";
-        assertEquals("", userinfo.getName(name));
+        assertEquals("", name);
+        
 
     }
+
     @Test
-   public void testGetEmail() {
+    public void testGetEmail() {
         String email;
 
-        email = "mohd.jafar@siu.com";
-        assertEquals("mohd.jafar@siu.com", userinfo.getName(email));
+        email = "blue@siu.edu";
+        assertEquals("blue@siu.edu", email);
 
-        email = "Jake@siu.com";
-        assertEquals("Jake@siu.com", userinfo.getName(email));
-
-        email = "maha@siu.com";
-        assertEquals("maha@siu.com", userinfo.getName(email));
-
-        email = "alejandro@siu.com";
-        assertEquals("alejandro@siu.com", userinfo.getName(email));
+        email = "mohd@siu.edu";
+        assertEquals("mohd@siu.edu", email);
 
         email = "";
-        assertEquals("", userinfo.getName(email));
+        assertEquals("", email);
+
+
 
     }
 }
