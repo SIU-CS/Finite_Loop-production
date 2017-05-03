@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -13,9 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -42,8 +39,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private Intent swicthActivityIntent;
     private MarkerOptions mapMarker;
 
-    private GPSTracker gpsTracker;
-    private Location mLoc;
+
     private double lat, lon;
     private LatLng latLng;
     private String addressText;
@@ -51,11 +47,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private GoogleApiClient client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -157,17 +154,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-//        gpsTracker = new GPSTracker(getApplicationContext());
-//        mLoc = gpsTracker.getLoc();
-//
-//        lat = mLoc.getLatitude();
-//        lon = mLoc.getLongitude();
+
 
         // Add a marker in Sydney and move the camera
         LatLng loc = new LatLng(38.7098824, -90.2220897);
         mMap.addMarker(new MarkerOptions().position(loc).title("Test"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(5));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -195,7 +188,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                     selectSpotIntent.putExtra("lot-tag", marker.getTag().toString());
                     startActivity(selectSpotIntent);
                 }
-                    //Toast.makeText(MapActivity.this, marker.getTag().toString(), Toast.LENGTH_SHORT).show();
+
                 return false;
             }
         });
@@ -225,7 +218,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mMap.clear();
         mMap.addMarker(mapMarker);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(100));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
         //permission to set and use current 'location
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

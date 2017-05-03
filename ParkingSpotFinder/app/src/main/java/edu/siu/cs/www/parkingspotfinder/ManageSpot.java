@@ -3,7 +3,6 @@ package edu.siu.cs.www.parkingspotfinder;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,8 +32,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 public class ManageSpot extends AppCompatActivity {
-
-    //private final String SIMPLIFY_API_KEY = getResources().getString(R.string.simplify_api_key);
+    
     private final String TAG = "MANAGE_SPOT_ACTIVITY::";
     private double rate;
     private final boolean DEBUG = true;
@@ -82,6 +79,7 @@ public class ManageSpot extends AppCompatActivity {
         final CardEditor cardEditor = (CardEditor) findViewById(R.id.cardEditor);
 
         simplify = new Simplify();
+
         simplify.setApiKey(getString(R.string.simplify_api_key));
 
         minutes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
