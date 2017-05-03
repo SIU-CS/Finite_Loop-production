@@ -112,7 +112,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String g = searchBar.getText().toString();
+                String g = getSearch(searchBar.getText().toString());
 
                 Geocoder geocoder = new Geocoder(getBaseContext());
                 List<Address> addresses = null;
@@ -227,7 +227,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mMap.setMyLocationEnabled(true);
 
     }
-
-
+    public String getSearch(String search){
+        return search;
+    }
 }
 
