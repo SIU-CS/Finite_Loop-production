@@ -76,8 +76,8 @@ public class RegisterActivitty extends AppCompatActivity {
                 progressDialog = ProgressDialog.show(RegisterActivitty.this, "Creating User", "Creating your account.", true);
 
                 // Get the information from the different fields
-                email = emailTextField.getText().toString().trim();
-                name = nameTextField.getText().toString().trim();
+                email = getEmail(emailTextField.getText().toString().trim());
+                name = getName(nameTextField.getText().toString().trim());
                 password = passwordTextField.getText().toString().trim();
                 verifyPassword = verifyPasswordtextField.getText().toString().trim();
 
@@ -154,5 +154,11 @@ public class RegisterActivitty extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+    public String getEmail(String email){
+        return email;
+    }
+    public String getName(String name){
+        return name;
     }
 }
