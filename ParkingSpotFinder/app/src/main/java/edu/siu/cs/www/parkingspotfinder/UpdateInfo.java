@@ -56,8 +56,8 @@ public class UpdateInfo extends AppCompatActivity {
         userEmail = (EditText) findViewById(R.id.emailInput);
         userName = (EditText) findViewById(R.id.nameInput);
 
-        name = userName.getText().toString();
-        email = userEmail.getText().toString();
+        name = getName(userName.getText().toString());
+        email = getEmail(userEmail.getText().toString());
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -175,5 +175,13 @@ public class UpdateInfo extends AppCompatActivity {
                         .setNegativeButton(android.R.string.no, null).show();
             }
         });
+    }
+
+    public String getName(String name){
+        return name;
+    }
+
+    public String getEmail(String email){
+        return email;
     }
 }

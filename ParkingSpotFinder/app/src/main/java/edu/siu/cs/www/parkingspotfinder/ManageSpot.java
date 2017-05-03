@@ -7,6 +7,7 @@ import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.FloatProperty;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -204,27 +205,22 @@ public class ManageSpot extends AppCompatActivity {
     }
 
     public void setRate(){
+        Float minutesPer = Float.valueOf(minutes.getSelectedItem().toString())/60;
+        Float hoursPer = Float.valueOf(hours.getSelectedItem().toString());
+        rateText.setText(calculateRate(minutesPer, hoursPer));
+    }
+
+    public String calculateRate(float minutesRate, float hoursRate){
         DecimalFormat form = new DecimalFormat("#0.00");
-
-        Double minutesPer = Double.valueOf(minutes.getSelectedItem().toString())/60;
-        Double hoursPer = Double.valueOf(hours.getSelectedItem().toString());
-
-        rate = (minutesPer + hoursPer);
-
-        Log.d(TAG, "RATE::"+form.format(rate));
-
-        rateText.setText(form.format(rate));
+        rate = (minutesRate + hoursRate);
+        return form.format(rate);
     }
 
     public String getMoneyToSend(){
-        Double minutesPer = Double.valueOf(minutes.getSelectedItem().toString())/60;
-        Double hoursPer = Double.valueOf(hours.getSelectedItem().toString());
+        Float minutesPer = Float.valueOf(minutes.getSelectedItem().toString())/60;
+        Float hoursPer = Float.valueOf(hours.getSelectedItem().toString());
 
-        DecimalFormat form = new DecimalFormat("#0.00");
-
-        rate = (minutesPer + hoursPer);
-
-        String rateToSend = form.format(rate);
+        String rateToSend = calculateRate(minutesPer, hoursPer);
         rateToSend = rateToSend.replaceAll("\\.","");
 
         if(DEBUG)
