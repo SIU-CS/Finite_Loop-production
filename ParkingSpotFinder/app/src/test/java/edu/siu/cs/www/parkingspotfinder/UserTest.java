@@ -29,7 +29,7 @@ public class UserTest extends TestCase {
 
         name = "";
         assertEquals("", name);
-        
+
 
     }
 
