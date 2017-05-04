@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                 progressDialog = ProgressDialog.show(LoginActivity.this, "Login", "Logging into your account.", true);
 
                 //Get the information from the needed fields
-                String email = emailTextField.getText().toString().trim();
+                String email = getLogin(emailTextField.getText().toString().trim());
                 String password = passwordTextField.getText().toString().trim();
 
                 Log.d(TAG, "EMAIL: " + email);
@@ -129,4 +129,7 @@ public class LoginActivity extends AppCompatActivity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+        public String getLogin(String username) {
+            return username;
+        }
 }

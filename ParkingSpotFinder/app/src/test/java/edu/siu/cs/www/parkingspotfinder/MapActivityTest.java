@@ -11,7 +11,7 @@ import static junit.framework.Assert.assertEquals;
  * Created by alejandro on 5/3/17.
  */
 
-public class MapActivityTest {
+public class MapActivityTest extends TestCase{
     MapActivity mapsearch;
 
     @Before
@@ -34,7 +34,6 @@ public class MapActivityTest {
 
         search = "";
         assertEquals("", mapsearch.getSearch(search));
-
 
     }
 }
