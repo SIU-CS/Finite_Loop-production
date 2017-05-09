@@ -26,5 +26,5 @@ email: jacob.reed95@siu.edu
 4. Select the project witin the cloned repository. (Note: You need to open the project that exists within the repository.  Opening the top level of the cloned repo will not open the project correctly.)
 5. Click run on the top of the window to run the project (We used a Nexus 5X with Android 7.0)
 6. When the emulator starts you need to register with the app when it first opens.
-7. To use the payment processing make sure you use one of the Simplify Commerce dummy cards. (It will charge you if you use your own)(Exaple #: 5555 5555 5555 4444 with cvc 123 and expiring on 01/18 and the zip can be anything). 
+7. To use the payment processing make sure you use one of the Simplify Commerce dummy cards. (It will charge you if you use your own)(Example #: 5555 5555 5555 4444 with cvc 123 and expiring on 01/18 and the zip can be anything). 
 8. Any issues with running the app should be directed towards us ahead of time.
