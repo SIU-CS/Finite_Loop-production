@@ -2,13 +2,14 @@ package edu.siu.cs.www.parkingspotfinder;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -87,6 +88,7 @@ public class SelectSpotActivity extends AppCompatActivity {
 
                         // Set the state to occupied to prevent others trying to reserve the same spot
                         mRef.child(spotNumber).child("state").setValue("OCC");
+                        Toast.makeText(SelectSpotActivity.this, "Spot now in use", Toast.LENGTH_LONG).show();
 
                         // Start the next activity
                         startActivity(payForSpot);

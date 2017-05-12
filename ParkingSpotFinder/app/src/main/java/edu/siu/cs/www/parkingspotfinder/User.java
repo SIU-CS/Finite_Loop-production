@@ -18,12 +18,8 @@ public class User {
         this.name = name;
     }
 
-    public String getName(){
-        return name;
-    }
+    public String getName(){ return name; }
 
-    public String getEmail(){
-        return email;
-    }
+    public String getEmail(){ return email; }
 
 }
